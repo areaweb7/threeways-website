@@ -126,13 +126,12 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
 
   <!-- 施工事例グリッド（2カラム） -->
   <section class="py-14 px-[5%] bg-[#0a0a0a] min-h-[60vh]">
-    <div class="grid sm:grid-cols-2 gap-6" id="works-grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="works-grid">
       {works.map(w => (
         <a
           href={`/works/${w.slug}/`}
           data-category={w.category}
-          class="work-card group" style="text-decoration:none;color:inherit;" bg-[#111111] border border-[#222] overflow-hidden
-                 hover:border-[#e85c00] hover:-translate-y-1 transition-all duration-300 block"
+          class="work-card group bg-[#111111] border border-[#222] overflow-hidden hover:border-[#e85c00] hover:-translate-y-1 transition-all duration-300 block"
           style="text-decoration:none;color:inherit;"
         >
           <!-- 写真（正方形に近い比率） -->
