@@ -1,87 +1,51 @@
 ---
-// src/pages/works/index.astro — 施工事例一覧
+// src/pages/works/index.astro — Sanity連携版
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import { client } from '../../lib/sanity';
 
-const works = [
-  {
-    slug: 'g-class-tiffany-blue',
-    title: 'Mercedes-Benz Gクラス ティファニーブルー全塗装',
-    category: '全塗装・カスタム',
-    tags: ['メルセデス', 'Gクラス', '全塗装', 'カラーチェンジ'],
-    img: '/cars/car9.jpg',
-    summary: 'オーナー様のこだわりのティファニーブルーに全塗装。ホイールのブラック化とエアロパーツを組み合わせ、唯一無二の1台に仕上げました。',
-    date: '2025.11',
-  },
-  {
-    slug: 'g-class-white-custom',
-    title: 'Mercedes-Benz Gクラス ホワイト×ブラック カスタム',
-    category: 'エアロ・カスタム',
-    tags: ['メルセデス', 'Gクラス', 'ホワイト', 'エアロ'],
-    img: '/cars/car11.jpg',
-    summary: 'ホワイトボディにブラックのエアロパーツを組み合わせたコントラストカスタム。ルーフレールとフェンダーもブラックで統一。',
-    date: '2025.10',
-  },
-  {
-    slug: 'g-class-gold-black',
-    title: 'Mercedes-Benz Gクラス ゴールド×ブラック ラッピング',
-    category: 'ラッピング',
-    tags: ['メルセデス', 'Gクラス', 'ラッピング', 'ゴールド'],
-    img: '/cars/car6.jpg',
-    summary: 'ゴールドとブラックの大胆なツートーンラッピング。存在感抜群の仕上がりでオーナー様に大変ご満足いただきました。',
-    date: '2025.09',
-  },
-  {
-    slug: 'maybach-vclass-custom',
-    title: 'Mercedes-Benz Maybach Vクラス フルカスタム',
-    category: 'フルカスタム',
-    tags: ['マイバッハ', 'Vクラス', 'フルカスタム', 'インテリア'],
-    img: '/cars/car4.jpg',
-    summary: 'エクステリアからインテリアまでフルカスタム。特注シートとアンビエントライトで高級感を極限まで高めた1台。',
-    date: '2025.08',
-  },
-  {
-    slug: 'mustang-shelby-gt500',
-    title: 'Ford Mustang Shelby GT500 カスタム仕上げ',
-    category: 'カスタム・販売',
-    tags: ['マスタング', 'シェルビー', 'GT500', 'アメ車'],
-    img: '/cars/car5.jpg',
-    summary: '希少なシェルビーGT500をベースに、エアロとホイールをカスタム。迫力のフォルムをさらに際立たせました。',
-    date: '2025.07',
-  },
-  {
-    slug: 'g-class-all-black',
-    title: 'Mercedes-Benz Gクラス オールブラック カスタム',
-    category: '全塗装・カスタム',
-    tags: ['メルセデス', 'Gクラス', 'ブラック', 'フルカスタム'],
-    img: '/cars/car8.jpg',
-    summary: 'ボディ・ホイール・エアロすべてをブラックで統一。重厚感と精悍さを両立したオールブラックカスタム。',
-    date: '2025.06',
-  },
-  {
-    slug: 'tesla-model3-custom',
-    title: 'Tesla Model 3 エアロカスタム',
-    category: 'エアロ・カスタム',
-    tags: ['テスラ', 'モデル3', 'エアロ', 'EV'],
-    img: '/cars/car3.jpg',
-    summary: 'EVのテスラにスポーティなエアロパーツをインストール。環境性能と迫力のスタイルを両立した現代的な1台。',
-    date: '2025.05',
-  },
-  {
-    slug: 'camaro-zl1-custom',
-    title: 'Chevrolet Camaro ZL1 コンバーチブル カスタム',
-    category: 'カスタム・販売',
-    tags: ['カマロ', 'ZL1', 'コンバーチブル', 'アメ車'],
-    img: '/cars/car10.jpg',
-    summary: '超希少なZL1コンバーチブルをカスタム仕上げで販売。エアロとホイールで存在感をさらに高め、特別な1台に。',
-    date: '2025.04',
-  },
+// Sanityからデータ取得（なければstatic fallback）
+let sanityWorks: any[] = [];
+try {
+  sanityWorks = await client.fetch(`
+    *[_type == "work"] | order(publishedAt desc) {
+      _id, title, slug, category, tags, summary, publishedAt,
+      "mainImage": mainImage.asset->url,
+    }
+  `);
+} catch(e) {
+  // Sanityにデータがなければ空配列
+}
+
+// Static fallback（Sanityにデータがない間はこちらを使用）
+const staticWorks = [
+  { slug: 'g-class-tiffany-blue',   title: 'Mercedes-Benz Gクラス ティファニーブルー全塗装',  category: '全塗装・カスタム', tags: ['メルセデス','Gクラス','全塗装'],       img: '/cars/car9.jpg',  summary: 'オーナー様のこだわりのティファニーブルーに全塗装。唯一無二の1台に仕上げました。', date: '2025.11' },
+  { slug: 'g-class-white-custom',   title: 'Mercedes-Benz Gクラス ホワイト×ブラック カスタム', category: 'エアロ・カスタム', tags: ['メルセデス','Gクラス','エアロ'],       img: '/cars/car11.jpg', summary: 'ホワイトボディにブラックのエアロを組み合わせたコントラストカスタム。',             date: '2025.10' },
+  { slug: 'g-class-gold-black',     title: 'Mercedes-Benz Gクラス ゴールド×ブラック ラッピング', category: 'ラッピング',      tags: ['メルセデス','Gクラス','ラッピング'],   img: '/cars/car6.jpg',  summary: 'ゴールドとブラックの大胆なツートーンラッピング。存在感抜群の仕上がり。',            date: '2025.09' },
+  { slug: 'maybach-vclass-custom',  title: 'Mercedes-Benz Maybach Vクラス フルカスタム',        category: 'フルカスタム',    tags: ['マイバッハ','Vクラス','フルカスタム'], img: '/cars/car4.jpg',  summary: 'エクステリアからインテリアまでフルカスタム。高級感を極限まで高めた1台。',           date: '2025.08' },
+  { slug: 'mustang-shelby-gt500',   title: 'Ford Mustang Shelby GT500 カスタム仕上げ',           category: 'カスタム・販売',  tags: ['マスタング','シェルビー','GT500'],    img: '/cars/car5.jpg',  summary: '希少なシェルビーGT500をベースにエアロとホイールをカスタム。',                      date: '2025.07' },
+  { slug: 'g-class-all-black',      title: 'Mercedes-Benz Gクラス オールブラック カスタム',      category: '全塗装・カスタム', tags: ['メルセデス','Gクラス','ブラック'],    img: '/cars/car8.jpg',  summary: 'ボディ・ホイール・エアロすべてをブラックで統一。重厚感と精悍さを両立。',            date: '2025.06' },
+  { slug: 'tesla-model3-custom',    title: 'Tesla Model 3 エアロカスタム',                       category: 'エアロ・カスタム', tags: ['テスラ','モデル3','EV'],             img: '/cars/car3.jpg',  summary: 'EVのテスラにスポーティなエアロパーツをインストール。',                              date: '2025.05' },
+  { slug: 'camaro-zl1-custom',      title: 'Chevrolet Camaro ZL1 コンバーチブル カスタム',       category: 'カスタム・販売',  tags: ['カマロ','ZL1','コンバーチブル'],      img: '/cars/car10.jpg', summary: '超希少なZL1コンバーチブルをカスタム仕上げで販売。',                               date: '2025.04' },
 ];
+
+// Sanityデータがあればそちらを使う
+const works = sanityWorks.length > 0
+  ? sanityWorks.map((w: any) => ({
+      slug: w.slug?.current ?? w.slug,
+      title: w.title,
+      category: w.category ?? '',
+      tags: w.tags ?? [],
+      img: w.mainImage ?? '/cars/car9.jpg',
+      summary: w.summary ?? '',
+      date: w.publishedAt ? w.publishedAt.slice(0,7).replace('-','.') : '',
+    }))
+  : staticWorks;
 
 const categories = ['すべて', '全塗装・カスタム', 'エアロ・カスタム', 'ラッピング', 'フルカスタム', 'カスタム・販売'];
 ---
 
-<Layout title="施工事例 | THREEWAYS" description="THREEWAYSの施工事例一覧。カスタムカー製作・全塗装・ラッピング・エアロカスタムなど、実際の仕上がりをご覧ください。">
+<Layout title="施工事例 | THREEWAYS" description="THREEWAYSの施工事例一覧。カスタムカー製作・全塗装・ラッピング・エアロカスタムなど。">
   <Header />
 
   <!-- ページヒーロー -->
@@ -99,7 +63,7 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
           <span class="w-5 h-px bg-[#e85c00] inline-block"></span>Works Gallery
         </p>
         <h1 class="text-[clamp(1.8rem,4vw,3rem)] font-black tracking-wide text-white">施工事例</h1>
-        <p class="text-[#aaa] text-sm mt-2">THREEWAYSが手がけたカスタムカーの実績をご紹介します</p>
+        <p class="text-[#aaa] text-sm mt-2">THREEWAYSが手がけたカスタムカーの実績</p>
       </div>
     </div>
   </section>
@@ -113,56 +77,46 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
           data-cat={cat}
           class:list={[
             'filter-btn whitespace-nowrap text-[.72rem] font-bold tracking-wide px-4 py-2 border transition-all',
-            i === 0
-              ? 'bg-[#e85c00] border-[#e85c00] text-white'
-              : 'border-[#2e2e2e] text-[#777] hover:border-[#e85c00] hover:text-[#e85c00]'
+            i === 0 ? 'bg-[#e85c00] border-[#e85c00] text-white' : 'border-[#2e2e2e] text-[#777] hover:border-[#e85c00] hover:text-[#e85c00]'
           ]}
-        >
-          {cat}
-        </button>
+        >{cat}</button>
       ))}
     </div>
   </div>
 
-  <!-- 施工事例グリッド（2カラム） -->
+  <!-- 施工事例グリッド（2カラム確定） -->
   <section class="py-14 px-[5%] bg-[#0a0a0a] min-h-[60vh]">
-    <div id="works-grid"
-         style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;">
+    <div id="works-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;">
       {works.map(w => (
         <a
           href={`/works/${w.slug}/`}
           data-category={w.category}
-          class="work-card group bg-[#111111] border border-[#222] overflow-hidden hover:border-[#e85c00] hover:-translate-y-1 transition-all duration-300 block"
+          class="work-card group bg-[#111111] border border-[#222] overflow-hidden transition-all duration-300 block"
           style="text-decoration:none;color:inherit;"
         >
-          <!-- 写真（正方形に近い比率） -->
           <div class="overflow-hidden relative" style="aspect-ratio:16/10;">
-            <img
-              src={w.img} alt={w.title} loading="lazy"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <!-- カテゴリバッジ -->
+            <img src={w.img} alt={w.title} loading="lazy"
+                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div class="absolute top-3 left-3 bg-[#e85c00] text-white text-[.6rem] font-black px-2 py-[3px] tracking-widest">
               {w.category}
             </div>
-            <!-- ホバー時オーバーレイ -->
             <div class="absolute inset-0 bg-[#e85c00] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
           </div>
-
-          <!-- テキスト -->
           <div class="p-5">
             <p class="text-[.65rem] text-[#444] tracking-widest mb-2 font-mono">{w.date}</p>
             <h2 class="font-black text-[.92rem] leading-snug mb-3 text-[#f0f0f0] group-hover:text-[#e85c00] transition-colors">
               {w.title}
             </h2>
-            <p class="text-[#666] text-xs leading-relaxed mb-4 line-clamp-2">{w.summary}</p>
+            <p class="text-[#666] text-xs leading-relaxed mb-4" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
+              {w.summary}
+            </p>
             <div class="flex flex-wrap gap-1 mb-3">
-              {w.tags.map(t => (
+              {w.tags.map((t: string) => (
                 <span class="text-[.6rem] border border-[#2a2a2a] text-[#555] px-2 py-[2px]">#{t}</span>
               ))}
             </div>
             <div class="flex items-center gap-1 text-[.72rem] text-[#e85c00] font-bold mt-3 border-t border-[#1e1e1e] pt-3">
-              詳細を見る <span class="text-xs">→</span>
+              詳細を見る <span>→</span>
             </div>
           </div>
         </a>
@@ -172,18 +126,17 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
 
   <!-- CTA -->
   <section class="py-16 px-[5%] bg-[#111] border-t border-[#1e1e1e] text-center">
-    <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-3 flex items-center justify-center gap-2">
-      <span class="w-5 h-px bg-[#e85c00]"></span>Contact<span class="w-5 h-px bg-[#e85c00]"></span>
+    <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-3" style="display:flex;align-items:center;justify-content:center;gap:.75rem;">
+      <span style="width:1.25rem;height:1px;background:#e85c00;display:inline-block;"></span>Contact
+      <span style="width:1.25rem;height:1px;background:#e85c00;display:inline-block;"></span>
     </p>
     <h2 class="text-xl font-black mb-3 text-white">あなたの1台もTHREEWAYSで</h2>
     <p class="text-[#666] text-sm mb-8">カスタムのご相談はLINEから。まずはお気軽にどうぞ。</p>
-    <div class="flex gap-4 justify-center flex-wrap">
-      <a href="/#contact"
-         class="bg-[#e85c00] text-white font-black px-8 py-3 text-sm tracking-wide hover:bg-[#ff7520] transition-colors">
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="/#contact" style="background:#e85c00;color:#fff;font-weight:900;padding:.75rem 2rem;font-size:.875rem;letter-spacing:.1em;text-decoration:none;">
         LINEで無料相談する
       </a>
-      <a href="/"
-         class="border border-[#333] text-[#aaa] px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all">
+      <a href="/" style="border:1px solid #333;color:#aaa;padding:.75rem 2rem;font-size:.875rem;text-decoration:none;">
         トップに戻る
       </a>
     </div>
@@ -192,6 +145,7 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
 
 <style>
   #filter-bar::-webkit-scrollbar { display: none; }
+  .work-card:hover { border-color: #e85c00; transform: translateY(-4px); }
 </style>
 
 <script>
@@ -201,17 +155,16 @@ const cards   = document.querySelectorAll<HTMLElement>('.work-card');
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     const cat = btn.dataset.cat ?? 'すべて';
-
     buttons.forEach(b => {
-      b.classList.remove('bg-[#e85c00]', 'border-[#e85c00]', 'text-white');
-      b.classList.add('border-[#2e2e2e]', 'text-[#777]');
+      b.style.background = '';
+      b.style.borderColor = '#2e2e2e';
+      b.style.color = '#777';
     });
-    btn.classList.add('bg-[#e85c00]', 'border-[#e85c00]', 'text-white');
-    btn.classList.remove('border-[#2e2e2e]', 'text-[#777]');
-
+    btn.style.background = '#e85c00';
+    btn.style.borderColor = '#e85c00';
+    btn.style.color = '#fff';
     cards.forEach(card => {
-      const match = cat === 'すべて' || card.dataset.category === cat;
-      card.style.display = match ? 'block' : 'none';
+      card.style.display = (cat === 'すべて' || card.dataset.category === cat) ? 'block' : 'none';
     });
   });
 });
