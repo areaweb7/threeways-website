@@ -1,17 +1,346 @@
 ---
+// index.astro — メインページ
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
 
+// ── ギャラリー写真
+const gallery = [
+  { img: '/cars/car9.jpg',  label: 'Mercedes-Benz G-Class カスタム', span: 'col-span-2 row-span-2' },
+  { img: '/cars/car11.jpg', label: 'G-Class ホワイト全塗装', span: '' },
+  { img: '/cars/car6.jpg',  label: 'G-Class ゴールド×ブラック', span: '' },
+  { img: '/cars/car4.jpg',  label: 'Maybach V-Class カスタム', span: '' },
+  { img: '/cars/car5.jpg',  label: 'Ford Mustang Shelby GT500', span: '' },
+  { img: '/cars/car8.jpg',  label: 'G-Class オールブラック', span: '' },
+  { img: '/cars/car3.jpg',  label: 'Tesla Model 3 カスタム', span: '' },
+  { img: '/cars/car10.jpg', label: 'Chevrolet Camaro ZL1', span: '' },
+];
+
+// ── 在庫車両
+const stock = [
+  { img: '/cars/car11.jpg', maker: 'MERCEDES-BENZ', name: 'Gクラス G350 カスタム', price: '658', total: '678', badge: 'NEW' },
+  { img: '/cars/car5.jpg',  maker: 'FORD',           name: 'マスタング 50イヤーズ エディション', price: '388', total: '408', badge: 'NEW' },
+  { img: '/cars/car6.jpg',  maker: 'MERCEDES-BENZ', name: 'Gクラス G350d ロング カスタム', price: '688', total: '708', badge: '' },
+];
+
+// ── チーム
+const team = [
+  { role: 'Co-Founder / Representative', name: '後藤 正樹', en: 'Masaki Goto', badge: '代表', tags: ['国家資格整備士','整備・販売','G-TEC代表'], quote: '技術へのこだわりと、お客様への深い理解で、期待を超えるサービスを。' },
+  { role: 'Co-Founder / Representative', name: '岩井 秀之', en: 'Hideyuki Iwai', badge: '代表', tags: ['カスタム','輸入車販売','企画'], quote: 'お客様の信頼を得て、満足を超える価値を提供することが私の使命です。' },
+  { role: 'Technical Manager',           name: '八木 元気', en: 'Genki Yagi',   badge: 'テクニカル', tags: ['メンテナンス','チューニング','技術管理'], quote: '専門用語が苦手な方でも安心して任せられる、丁寧なサービスを心がけています。' },
+  { role: 'Body Work & Painter',         name: '後藤 真峰', en: 'Mao Goto',     badge: 'ペインター', tags: ['板金塗装','ボディワーク','リペア'], quote: '車に新たな命を吹き込み、お客様の愛車を最高の状態へ。' },
+];
+
+// ── レビュー
+const reviews = [
+  { score: '5.0', scores: ['接客 5','雰囲気 5','アフター 5','品質 5'], text: '「接客もサービスも素晴らしかったです。予想してた車以上の物を用意してくれました。完璧な仕事です。大事に乗ります。」', author: 'うすだ 様 / グーネット' },
+  { score: '5.0', scores: ['接客 5','雰囲気 5','アフター 5','品質 5'], text: '「憧れだったマスタングを1年探して見つけました。昼に問い合わせて丁寧に説明してもらい、翌朝すぐ見ることができました。」', author: 'ますたん 様 / グーネット' },
+  { score: '5.0', scores: ['接客 5','雰囲気 5','アフター 5','品質 5'], text: '「丁寧にいろいろと教えていただきありがとうございました。LINEでのやり取りも丁寧で、今後もよろしくお願いいたします。」', author: 'あっくん 様 / グーネット' },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <Header />
+  <Hero />
+
+  <!-- ── 選ばれる理由 ── -->
+  <section id="reasons" class="py-24 px-[5%] bg-[#111111]">
+    <p class="flex items-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">
+      <span class="w-6 h-px bg-[#e85c00]"></span>Why Choose Us
+    </p>
+    <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-14">THREEWAYSが<br>選ばれる3つの理由</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#252525]">
+      {[
+        { n:'01', icon:'🔧', title:'カスタム専門チームによる\nオーダーメイド製作', text:'エアロパーツ・全塗装・インテリアなど、専門チームがお客様の「こうしたい」を形にします。1台ずつに全力を尽くします。' },
+        { n:'02', icon:'⭐', title:'カーセンサー・グーネット\n口コミ全項目★5評価', text:'接客・雰囲気・アフター・品質すべてで最高評価。「予想以上の車を用意してくれた」というお声が示す確かな実績。' },
+        { n:'03', icon:'🔄', title:'売って終わらない\nトータルアフターサポート', text:'購入後のメンテ・修理・板金・コーティングまでグループ一貫対応。愛車を最高の状態に保ち続けます。' },
+      ].map(r => (
+        <div class="bg-[#161616] px-9 py-10 hover:bg-[#1e1208] transition-colors">
+          <div class="text-5xl font-black text-[#e85c00] opacity-20 leading-none mb-5 font-['Arial_Black',sans-serif]">{r.n}</div>
+          <div class="text-3xl mb-3">{r.icon}</div>
+          <div class="text-lg font-black mb-3 whitespace-pre-line">{r.title}</div>
+          <p class="text-[#aaa] text-sm leading-relaxed">{r.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── ギャラリー ── -->
+  <section id="gallery" class="py-24 px-[5%] bg-[#0a0a0a]">
+    <p class="flex items-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">
+      <span class="w-6 h-px bg-[#e85c00]"></span>Works Gallery
+    </p>
+    <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">施工実績ギャラリー</h2>
+    <p class="text-[#aaa] text-sm mb-10">THREEWAYSが手がけたカスタムカーの仕上がりをご覧ください。</p>
+    <div class="grid grid-cols-4 grid-rows-2 gap-[3px]">
+      {gallery.map((g, i) => (
+        <div class={`overflow-hidden relative group ${i === 0 ? 'col-span-2 row-span-2 h-[460px]' : 'h-[228px]'}`}>
+          <img src={g.img} alt={g.label} loading="lazy"
+               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white text-sm font-bold tracking-wide">{g.label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="text-center mt-10">
+      <a href="https://www.youtube.com/@ThreeWaysGifu" target="_blank" rel="noopener"
+         class="border border-white/50 text-white px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all inline-block">
+        YouTubeで施工動画を見る ▶
+      </a>
+    </div>
+  </section>
+
+  <!-- ── チーム ── -->
+  <section id="team" class="py-24 px-[5%] bg-[#111111]">
+    <p class="flex items-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">
+      <span class="w-6 h-px bg-[#e85c00]"></span>Our Team
+    </p>
+    <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-6">創業メンバー &amp; スタッフ</h2>
+    <p class="border-l-2 border-[#e85c00] pl-5 text-[#aaa] text-sm leading-loose mb-12 max-w-2xl">
+      後藤・岩井・八木・後藤（真峰）の4人が、それぞれの専門技術を持ち寄りTHREEWAYSを立ち上げました。カスタム、整備・販売、テクニカル、ボディワーク——各分野のプロが揃っているからこそ、購入からカスタム・修理・アフターまでを一貫してお任せいただけます。
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#252525]">
+      {team.map(m => (
+        <div class="bg-[#161616] overflow-hidden hover:bg-[#1a1008] transition-colors">
+          <div class="h-[200px] bg-[#0a0a0a] flex items-center justify-center relative">
+            <span class="text-6xl text-[#252525]">👤</span>
+            <span class="absolute top-2 left-2 bg-[#e85c00] text-white text-[.6rem] font-black px-2 py-[3px] tracking-widest">{m.badge}</span>
+          </div>
+          <div class="p-5">
+            <p class="text-[.62rem] text-[#e85c00] tracking-[.18em] uppercase mb-1">{m.role}</p>
+            <h3 class="text-lg font-black mb-[2px]">{m.name}</h3>
+            <p class="text-[.7rem] text-[#888] tracking-wider mb-4">{m.en}</p>
+            <div class="flex flex-wrap gap-1 mb-4">
+              {m.tags.map(t => (
+                <span class="text-[.62rem] border border-[#e85c0059] text-[#e85c00] px-2 py-[2px]">{t}</span>
+              ))}
+            </div>
+            <p class="text-[.78rem] text-[#aaa] leading-relaxed border-t border-[#252525] pt-3 italic">{m.quote}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── YouTube ── -->
+  <section id="youtube" class="py-24 px-[5%] bg-[#0a0a0a]">
+    <div class="text-center mb-14">
+      <p class="flex items-center justify-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3 after:content-[''] after:w-6 after:h-px after:bg-[#e85c00]">
+        YouTube Channel
+      </p>
+      <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">公式YouTubeチャンネル</h2>
+      <p class="text-[#aaa] text-sm max-w-lg mx-auto">施工風景・カスタム解説・納車動画など、THREEWAYSの技術と情熱をリアルにお届けしています。</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <div class="aspect-video border border-[#252525] overflow-hidden">
+        <iframe src="https://www.youtube.com/embed/pJzh43g09HI" title="ThreeWays YouTube" allowfullscreen loading="lazy" class="w-full h-full"></iframe>
+      </div>
+      <div class="aspect-video border border-[#252525] overflow-hidden">
+        <iframe src="https://www.youtube.com/embed/79abj-UdhtI" title="ThreeWays YouTube" allowfullscreen loading="lazy" class="w-full h-full"></iframe>
+      </div>
+    </div>
+    <div class="bg-[#161616] border border-[#252525] p-7 flex items-center justify-between gap-4 flex-wrap">
+      <div>
+        <h3 class="font-bold mb-1">📺 ThreeWays Gifu — 公式YouTubeチャンネル</h3>
+        <p class="text-[#888] text-sm">最新の施工動画・カスタム事例を随時更新中。チャンネル登録でお見逃しなく。</p>
+      </div>
+      <a href="https://www.youtube.com/@ThreeWaysGifu" target="_blank" rel="noopener"
+         class="bg-[#e85c00] text-white font-black px-6 py-3 text-sm tracking-wide hover:bg-[#ff7520] transition-colors whitespace-nowrap">
+        チャンネルを見る ▶
+      </a>
+    </div>
+  </section>
+
+  <!-- ── サービス ── -->
+  <section id="services" class="py-24 px-[5%] bg-[#111111]">
+    <p class="flex items-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">
+      <span class="w-6 h-px bg-[#e85c00]"></span>Our Services
+    </p>
+    <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">サービス一覧</h2>
+    <p class="text-[#aaa] text-sm mb-12">購入・カスタム・修理・アフターまで。THREEWAYSグループがワンストップで対応します。</p>
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- THREEWAYS -->
+      <div>
+        <div class="flex items-baseline gap-3 border-b-2 border-[#e85c00] pb-4 mb-5">
+          <span class="font-black tracking-widest">THREEWAYS</span>
+          <span class="text-[.73rem] text-[#888]">カスタム・販売・整備</span>
+        </div>
+        {[
+          { ico:'🔧', name:'カスタムカー製作・販売', desc:'エアロ・全塗装・インテリアなど専門チームがオーダーメイドで1台を仕上げます。' },
+          { ico:'🚗', name:'新車・中古車販売', desc:'マスタング・Gクラス・テスラなど厳選した輸入車・国産車。全国納車対応。' },
+          { ico:'💴', name:'中古車買取', desc:'公正・透明な査定。どんな車種もお気軽にご相談ください。' },
+          { ico:'🔑', name:'車検整備', desc:'自社認証工場・国家資格整備士による安心の車検。' },
+          { ico:'🚨', name:'事故対応・タイヤ交換', desc:'全国対応積載車完備。事故救援から修理・納車まで一括サポート。' },
+        ].map(s => (
+          <div class="flex gap-3 p-4 border border-[#252525] mb-2 hover:border-[#e85c00] hover:bg-[#e85c0009] transition-all">
+            <span class="text-2xl min-w-[2rem] text-center">{s.ico}</span>
+            <div>
+              <div class="font-bold text-sm mb-1">{s.name}</div>
+              <div class="text-[#888] text-xs leading-relaxed">{s.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <!-- G-TEC -->
+      <div>
+        <div class="flex items-baseline gap-3 border-b-2 border-[#e85c00] pb-4 mb-5">
+          <span class="font-black tracking-widest">G-TEC</span>
+          <span class="text-[.73rem] text-[#888]">グループ技術部門</span>
+        </div>
+        {[
+          { ico:'🛞', name:'ホイール修理', desc:'傷・ガリ傷・歪みなどあらゆるダメージを修復。1000社以上の実績。' },
+          { ico:'🎨', name:'板金塗装', desc:'小さな傷から大きな損傷まで。精緻な色合わせで新車同様の仕上がりに。' },
+          { ico:'🪑', name:'内装修理・天井張替', desc:'シート・ダッシュボード・天井など高品質素材でリフレッシュ。' },
+          { ico:'💎', name:'ガラスコーティング', desc:'最新技術で塗装を長期保護。輝きと撥水性を長く維持します。' },
+        ].map(s => (
+          <div class="flex gap-3 p-4 border border-[#252525] mb-2 hover:border-[#e85c00] hover:bg-[#e85c0009] transition-all">
+            <span class="text-2xl min-w-[2rem] text-center">{s.ico}</span>
+            <div>
+              <div class="font-bold text-sm mb-1">{s.name}</div>
+              <div class="text-[#888] text-xs leading-relaxed">{s.desc}</div>
+            </div>
+          </div>
+        ))}
+        <div class="bg-[#e85c000f] border border-[#e85c0038] p-4 text-xs text-[#aaa] leading-loose mt-3">
+          ※ G-TECへのご依頼も<strong>THREEWAYSのLINE・電話にて一括受付</strong>しています。<br/>
+          <a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00]">G-TECウェブサイト →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 在庫車両 ── -->
+  <section id="stock" class="py-24 px-[5%] bg-[#0a0a0a]">
+    <div class="text-center mb-14">
+      <p class="flex items-center justify-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3 after:content-[''] after:w-6 after:h-px after:bg-[#e85c00]">Inventory</p>
+      <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">在庫車両</h2>
+      <p class="text-[#aaa] text-sm max-w-md mx-auto">最新の全在庫はカーセンサー・グーネットにてご確認ください。</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      {stock.map(s => (
+        <div class="bg-[#161616] border border-[#252525] overflow-hidden hover:border-[#e85c00] hover:-translate-y-1 transition-all cursor-pointer">
+          <div class="h-[170px] overflow-hidden relative">
+            <img src={s.img} alt={s.name} loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            {s.badge && <span class="absolute top-2 left-2 bg-[#e85c00] text-white text-[.62rem] font-black px-2 py-[2px] tracking-widest">{s.badge}</span>}
+          </div>
+          <div class="p-4">
+            <p class="text-[.68rem] text-[#e85c00] tracking-wider mb-1">{s.maker}</p>
+            <h3 class="font-black text-sm mb-3 leading-snug">{s.name}</h3>
+            <p class="text-2xl font-black text-[#e85c00]">{s.price}<span class="text-sm font-normal text-[#888]">万円（本体）</span></p>
+            <p class="text-xs text-[#888] mt-1">総額 {s.total}万円</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="https://www.carsensor.net/shop/gifu/328993001/?SHOPTR=1" target="_blank" rel="noopener"
+         class="border border-white/40 text-white px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all">
+        カーセンサーで全在庫を見る
+      </a>
+      <a href="https://www.goo-net.com/usedcar_shop/0206839/detail.html" target="_blank" rel="noopener"
+         class="border border-white/40 text-white px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all">
+        グーネットで全在庫を見る
+      </a>
+    </div>
+  </section>
+
+  <!-- ── レビュー ── -->
+  <section id="reviews" class="py-24 px-[5%] bg-[#111111]">
+    <div class="text-center mb-14">
+      <p class="flex items-center justify-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3 after:content-[''] after:w-6 after:h-px after:bg-[#e85c00]">Customer Reviews</p>
+      <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">お客様の声</h2>
+      <p class="text-[#aaa] text-sm">グーネット・カーセンサーに寄せられた実際のレビューです。</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {reviews.map(r => (
+        <div class="bg-[#161616] border border-[#252525] p-7 hover:border-[#e85c00] transition-colors">
+          <div class="text-[#e85c00] tracking-widest mb-3">★★★★★ {r.score}</div>
+          <div class="flex flex-wrap gap-1 mb-4">
+            {r.scores.map(s => <span class="text-[.67rem] text-[#888] bg-[#111] border border-[#252525] px-2 py-[2px]">{s}</span>)}
+          </div>
+          <p class="text-sm text-[#aaa] leading-loose mb-4">{r.text}</p>
+          <p class="text-xs text-[#666]">— {r.author}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── アクセス・問い合わせ ── -->
+  <section id="contact" class="py-24 px-[5%] bg-[#111111]">
+    <p class="flex items-center gap-3 text-[.7rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">
+      <span class="w-6 h-px bg-[#e85c00]"></span>Contact &amp; Access
+    </p>
+    <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-12">お問い合わせ・アクセス</h2>
+    <div class="grid md:grid-cols-2 gap-16">
+      <div class="bg-[#161616] border border-[#252525] overflow-hidden min-h-[300px]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.5!2d136.744624!3d35.383784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDIzJzAxLjYiTiAxMzbCsDQ0JzQwLjYiRQ!5e0!3m2!1sja!2sjp!4v1"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          class="w-full h-full min-h-[300px] border-none" style="filter:grayscale(70%) invert(85%)">
+        </iframe>
+      </div>
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="text-[.68rem] tracking-[.22em] text-[#e85c00] uppercase mb-2">Address</p>
+          <p class="text-sm">〒500-8282 岐阜県岐阜市</p>
+        </div>
+        <div>
+          <p class="text-[.68rem] tracking-[.22em] text-[#e85c00] uppercase mb-2">Business Hours</p>
+          <p class="text-sm">営業時間：9:00〜19:00（不定休）</p>
+          <p class="text-xs text-[#888] mt-1">LINEは24時間受付中</p>
+        </div>
+        <div>
+          <p class="text-[.68rem] tracking-[.22em] text-[#e85c00] uppercase mb-2">Phone</p>
+          <a href="tel:0582144420" class="text-3xl font-black tracking-wider text-white">058-214-4420</a>
+        </div>
+        <a href="https://line.me/R/ti/p/" class="flex items-center justify-center gap-3 bg-[#06C755] text-white font-black py-4 text-lg hover:opacity-88 transition-opacity">
+          <span class="text-2xl">💬</span>LINEで無料相談・お見積もり
+        </a>
+        <div class="bg-[#06c75511] border border-[#06c75538] p-4 text-xs text-[#aaa] leading-loose">
+          ※ THREEWAYSのLINEにて、G-TEC（修理・リペア部門）へのご依頼も一括受付しています。修理・板金・コーティングのご相談も、まずはこちらからお気軽にどうぞ。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="bg-[#060606] border-t border-[#252525] pt-16 pb-8 px-[5%]">
+    <div class="grid md:grid-cols-3 gap-16 mb-12">
+      <div>
+        <a href="/" class="text-2xl font-black tracking-[.18em] text-white no-underline block mb-4">
+          THREE<em class="text-[#e85c00] not-italic">WAYS</em>
+        </a>
+        <p class="text-[#888] text-sm leading-loose">
+          岐阜県のカスタム輸入車専門店。<br/>
+          カスタム製作・輸入車販売・修理メンテナンスをグループでトータルサポート。<br/>
+          国家資格整備士在籍・自社認証工場完備。
+        </p>
+        <p class="text-sm text-[#888] mt-4">グループ会社：<a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00]">G-TEC（技術部門）</a></p>
+      </div>
+      <div>
+        <h4 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase border-b border-[#252525] pb-2 mb-5">Services</h4>
+        <ul class="space-y-3 text-sm text-[#888]">
+          <li><a href="#services" class="hover:text-[#e85c00] transition-colors">カスタムカー製作</a></li>
+          <li><a href="#services" class="hover:text-[#e85c00] transition-colors">新車・中古車販売</a></li>
+          <li><a href="#services" class="hover:text-[#e85c00] transition-colors">中古車買取</a></li>
+          <li><a href="#services" class="hover:text-[#e85c00] transition-colors">車検整備</a></li>
+          <li><a href="#services" class="hover:text-[#e85c00] transition-colors">板金塗装（G-TEC）</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase border-b border-[#252525] pb-2 mb-5">Links</h4>
+        <ul class="space-y-3 text-sm text-[#888]">
+          <li><a href="https://www.youtube.com/@ThreeWaysGifu" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">YouTube公式チャンネル</a></li>
+          <li><a href="https://www.carsensor.net/shop/gifu/328993001/?SHOPTR=1" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">カーセンサー在庫</a></li>
+          <li><a href="https://www.goo-net.com/usedcar_shop/0206839/detail.html" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">グーネット在庫</a></li>
+          <li><a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">G-TEC公式サイト</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-[#252525] pt-6 flex flex-wrap justify-between items-center gap-2 text-xs text-[#666]">
+      <span>© 2026 THREEWAYS. All rights reserved.</span>
+      <span>〒500-8282 岐阜県岐阜市 / TEL: 058-214-4420</span>
+    </div>
+  </footer>
+</Layout>

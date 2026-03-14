@@ -1,0 +1,105 @@
+---
+// Hero.astro — 左テキスト / 右スライダー 2カラム
+const slides = [
+  { img: '/cars/car9.jpg',  alt: 'Mercedes-Benz G-Class ティファニーブルー カスタム' },
+  { img: '/cars/car11.jpg', alt: 'Mercedes-Benz G-Class ホワイト カスタム' },
+  { img: '/cars/car6.jpg',  alt: 'Mercedes-Benz G-Class ゴールド×ブラック' },
+  { img: '/cars/car4.jpg',  alt: 'Maybach V-Class カスタム' },
+];
+---
+
+<section id="hero" class="relative min-h-screen grid grid-cols-[42%_58%] overflow-hidden bg-[#0a0a0a]">
+
+  <!-- 左：テキストパネル（黒背景） -->
+  <div class="relative z-10 flex flex-col justify-end bg-[#0a0a0a]
+              px-[5%] pb-[10vh] pt-[calc(62px+10vh)]
+              shadow-[8px_0_30px_0_#0a0a0a]">
+
+    <!-- バッジ -->
+    <div class="inline-flex items-center gap-2 border border-[#e85c00] text-[#e85c00]
+                text-[.68rem] tracking-[.18em] px-[.85rem] py-[.25rem] mb-6 w-fit">
+      <span class="w-[14px] h-px bg-[#e85c00] block"></span>
+      THREEWAYS — Custom Import Car, Gifu
+    </div>
+
+    <!-- キャッチコピー -->
+    <h1 class="text-[clamp(2.2rem,3.2vw,3.6rem)] font-black leading-[1.25] tracking-[.01em] mb-5">
+      4人の専門家が、<br>
+      <span class="text-[#e85c00]">あなただけの1台</span>を作る。
+    </h1>
+
+    <!-- サブコピー -->
+    <p class="text-[#aaa] text-[clamp(.85rem,1.3vw,1rem)] tracking-wide mb-4">
+      カスタム製作 × 修理・リペア × アフターサポート
+    </p>
+
+    <!-- タグ -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      <span class="text-[#e85c00] border border-[#e85c0059] text-[.68rem] tracking-[.07em] px-3 py-1">自社認証工場完備</span>
+      <span class="text-[#e85c00] border border-[#e85c0059] text-[.68rem] tracking-[.07em] px-3 py-1">国家資格整備士</span>
+      <span class="text-[#e85c00] border border-[#e85c0059] text-[.68rem] tracking-[.07em] px-3 py-1">口コミ全項目★5</span>
+      <span class="text-[#e85c00] border border-[#e85c0059] text-[.68rem] tracking-[.07em] px-3 py-1">YouTube公式配信中</span>
+    </div>
+
+    <!-- CTAボタン -->
+    <div class="flex flex-wrap gap-3">
+      <a href="#contact"
+         class="bg-[#e85c00] text-white font-black text-[.95rem] tracking-[.1em]
+                px-8 py-3 hover:bg-[#ff7520] hover:-translate-y-0.5 transition-all">
+        LINEで無料相談する
+      </a>
+      <a href="#stock"
+         class="border border-white/50 text-white font-semibold text-[.95rem] tracking-[.08em]
+                px-8 py-3 hover:border-[#e85c00] hover:text-[#e85c00] hover:-translate-y-0.5 transition-all">
+        在庫車両を見る
+      </a>
+    </div>
+  </div>
+
+  <!-- 右：写真スライダー -->
+  <div class="relative overflow-hidden" id="hero-visual">
+    {slides.map((s, i) => (
+      <div
+        class={`hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-[1200ms] ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+        style={`background-image:url('${s.img}');background-position:center 30%`}
+        aria-label={s.alt}
+      />
+    ))}
+
+    <!-- 左グラデ（黒パネルと接続） -->
+    <div class="absolute inset-0 z-10 pointer-events-none"
+         style="background:linear-gradient(to right,#0a0a0a 0%,#0a0a0a 2%,rgba(10,10,10,.85) 10%,rgba(10,10,10,.4) 25%,transparent 50%)">
+    </div>
+    <!-- 右黒帯 -->
+    <div class="absolute top-0 right-0 bottom-0 w-20 z-10 pointer-events-none"
+         style="background:linear-gradient(to left,rgba(10,10,10,.85),transparent)">
+    </div>
+
+    <!-- スライドドット -->
+    <div class="absolute bottom-8 left-6 z-20 flex gap-2" id="hero-dots"></div>
+  </div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsEl = document.getElementById('hero-dots');
+  let cur = 0;
+
+  // ドット生成
+  slides.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = `w-7 h-[3px] transition-colors ${i === 0 ? 'bg-[#e85c00]' : 'bg-white/30'}`;
+    b.addEventListener('click', () => go(i));
+    dotsEl?.appendChild(b);
+  });
+
+  function go(n: number) {
+    (slides[cur] as HTMLElement).style.opacity = '0';
+    if (dotsEl?.children[cur]) (dotsEl.children[cur] as HTMLElement).className = 'w-7 h-[3px] transition-colors bg-white/30';
+    cur = n;
+    (slides[cur] as HTMLElement).style.opacity = '1';
+    if (dotsEl?.children[cur]) (dotsEl.children[cur] as HTMLElement).className = 'w-7 h-[3px] transition-colors bg-[#e85c00]';
+  }
+
+  setInterval(() => go((cur + 1) % slides.length), 4500);
+</script>

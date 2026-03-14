@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --orange: #e85c00;
+  --orange2: #ff7520;
+}
+
+html { scroll-behavior: smooth; }
+
+@layer base {
+  body { @apply bg-[#0a0a0a] text-[#f2f2f2]; }
+}
+
+@layer utilities {
+  .text-orange { color: var(--orange); }
+  .border-orange { border-color: var(--orange); }
+  .bg-orange { background-color: var(--orange); }
+  .bg-orange2 { background-color: var(--orange2); }
+}
