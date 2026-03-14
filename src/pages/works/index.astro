@@ -11,7 +11,7 @@ const works = [
     tags: ['メルセデス', 'Gクラス', '全塗装', 'カラーチェンジ'],
     img: '/cars/car9.jpg',
     summary: 'オーナー様のこだわりのティファニーブルーに全塗装。ホイールのブラック化とエアロパーツを組み合わせ、唯一無二の1台に仕上げました。',
-    date: '2025-11',
+    date: '2025.11',
   },
   {
     slug: 'g-class-white-custom',
@@ -20,7 +20,7 @@ const works = [
     tags: ['メルセデス', 'Gクラス', 'ホワイト', 'エアロ'],
     img: '/cars/car11.jpg',
     summary: 'ホワイトボディにブラックのエアロパーツを組み合わせたコントラストカスタム。ルーフレールとフェンダーもブラックで統一。',
-    date: '2025-10',
+    date: '2025.10',
   },
   {
     slug: 'g-class-gold-black',
@@ -29,7 +29,7 @@ const works = [
     tags: ['メルセデス', 'Gクラス', 'ラッピング', 'ゴールド'],
     img: '/cars/car6.jpg',
     summary: 'ゴールドとブラックの大胆なツートーンラッピング。存在感抜群の仕上がりでオーナー様に大変ご満足いただきました。',
-    date: '2025-09',
+    date: '2025.09',
   },
   {
     slug: 'maybach-vclass-custom',
@@ -38,7 +38,7 @@ const works = [
     tags: ['マイバッハ', 'Vクラス', 'フルカスタム', 'インテリア'],
     img: '/cars/car4.jpg',
     summary: 'エクステリアからインテリアまでフルカスタム。特注シートとアンビエントライトで高級感を極限まで高めた1台。',
-    date: '2025-08',
+    date: '2025.08',
   },
   {
     slug: 'mustang-shelby-gt500',
@@ -47,7 +47,7 @@ const works = [
     tags: ['マスタング', 'シェルビー', 'GT500', 'アメ車'],
     img: '/cars/car5.jpg',
     summary: '希少なシェルビーGT500をベースに、エアロとホイールをカスタム。迫力のフォルムをさらに際立たせました。',
-    date: '2025-07',
+    date: '2025.07',
   },
   {
     slug: 'g-class-all-black',
@@ -56,7 +56,7 @@ const works = [
     tags: ['メルセデス', 'Gクラス', 'ブラック', 'フルカスタム'],
     img: '/cars/car8.jpg',
     summary: 'ボディ・ホイール・エアロすべてをブラックで統一。重厚感と精悍さを両立したオールブラックカスタム。',
-    date: '2025-06',
+    date: '2025.06',
   },
   {
     slug: 'tesla-model3-custom',
@@ -65,7 +65,7 @@ const works = [
     tags: ['テスラ', 'モデル3', 'エアロ', 'EV'],
     img: '/cars/car3.jpg',
     summary: 'EVのテスラにスポーティなエアロパーツをインストール。環境性能と迫力のスタイルを両立した現代的な1台。',
-    date: '2025-05',
+    date: '2025.05',
   },
   {
     slug: 'camaro-zl1-custom',
@@ -73,8 +73,8 @@ const works = [
     category: 'カスタム・販売',
     tags: ['カマロ', 'ZL1', 'コンバーチブル', 'アメ車'],
     img: '/cars/car10.jpg',
-    summary: '超希少なZL1コンバーチブルをカスタム仕上げで販売。エアロとホイールのカスタムで存在感をさらにアップ。',
-    date: '2025-04',
+    summary: '超希少なZL1コンバーチブルをカスタム仕上げで販売。エアロとホイールで存在感をさらに高め、特別な1台に。',
+    date: '2025.04',
   },
 ];
 
@@ -86,62 +86,83 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
 
   <!-- ページヒーロー -->
   <section class="pt-[62px] bg-[#0a0a0a]">
-    <div class="relative h-[280px] overflow-hidden flex items-end">
-      <div class="absolute inset-0 bg-cover bg-center bg-[url('/cars/car9.jpg')]"
-           style="filter:brightness(.35)"></div>
-      <div class="relative z-10 px-[5%] pb-12 w-full">
-        <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-2">Works Gallery</p>
-        <h1 class="text-[clamp(2rem,4vw,3.2rem)] font-black tracking-wide">施工事例</h1>
+    <div class="relative h-[260px] overflow-hidden flex items-end"
+         style="background-image:url('/cars/car9.jpg');background-size:cover;background-position:center 40%;">
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.78)"></div>
+      <div class="relative z-10 px-[5%] pb-10 w-full">
+        <nav class="text-xs text-[#555] mb-3">
+          <a href="/" class="hover:text-[#e85c00] transition-colors">TOP</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#888]">施工事例</span>
+        </nav>
+        <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-2 flex items-center gap-2">
+          <span class="w-5 h-px bg-[#e85c00] inline-block"></span>Works Gallery
+        </p>
+        <h1 class="text-[clamp(1.8rem,4vw,3rem)] font-black tracking-wide text-white">施工事例</h1>
         <p class="text-[#aaa] text-sm mt-2">THREEWAYSが手がけたカスタムカーの実績をご紹介します</p>
       </div>
     </div>
   </section>
 
   <!-- カテゴリフィルター -->
-  <section class="bg-[#111] border-b border-[#252525] sticky top-[62px] z-40">
-    <div class="px-[5%] py-4 flex gap-3 overflow-x-auto scrollbar-none" id="filter-bar">
+  <div class="bg-[#111] border-b border-[#252525] sticky top-[62px] z-40">
+    <div class="px-[5%] py-4 flex gap-2 overflow-x-auto" id="filter-bar"
+         style="scrollbar-width:none;-ms-overflow-style:none;">
       {categories.map((cat, i) => (
         <button
           data-cat={cat}
-          class={`filter-btn whitespace-nowrap text-[.75rem] tracking-wide px-4 py-2 border transition-all ${i === 0 ? 'bg-[#e85c00] border-[#e85c00] text-white' : 'border-[#333] text-[#888] hover:border-[#e85c00] hover:text-[#e85c00]'}`}
+          class:list={[
+            'filter-btn whitespace-nowrap text-[.72rem] font-bold tracking-wide px-4 py-2 border transition-all',
+            i === 0
+              ? 'bg-[#e85c00] border-[#e85c00] text-white'
+              : 'border-[#2e2e2e] text-[#777] hover:border-[#e85c00] hover:text-[#e85c00]'
+          ]}
         >
           {cat}
         </button>
       ))}
     </div>
-  </section>
+  </div>
 
-  <!-- 施工事例グリッド -->
-  <section class="py-16 px-[5%] bg-[#0a0a0a] min-h-screen">
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="works-grid">
+  <!-- 施工事例グリッド（2カラム） -->
+  <section class="py-14 px-[5%] bg-[#0a0a0a] min-h-[60vh]">
+    <div class="grid sm:grid-cols-2 gap-6" id="works-grid">
       {works.map(w => (
         <a
           href={`/works/${w.slug}/`}
           data-category={w.category}
-          class="work-card group bg-[#111] border border-[#252525] overflow-hidden
+          class="work-card group" style="text-decoration:none;color:inherit;" bg-[#111111] border border-[#222] overflow-hidden
                  hover:border-[#e85c00] hover:-translate-y-1 transition-all duration-300 block"
+          style="text-decoration:none;color:inherit;"
         >
-          <!-- 写真 -->
-          <div class="h-[220px] overflow-hidden relative">
+          <!-- 写真（正方形に近い比率） -->
+          <div class="overflow-hidden relative" style="aspect-ratio:16/10;">
             <img
               src={w.img} alt={w.title} loading="lazy"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div class="absolute top-3 left-3 bg-[#e85c00] text-white text-[.62rem] font-black px-2 py-[3px] tracking-widest">
+            <!-- カテゴリバッジ -->
+            <div class="absolute top-3 left-3 bg-[#e85c00] text-white text-[.6rem] font-black px-2 py-[3px] tracking-widest">
               {w.category}
             </div>
+            <!-- ホバー時オーバーレイ -->
+            <div class="absolute inset-0 bg-[#e85c00] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
           </div>
+
           <!-- テキスト -->
           <div class="p-5">
-            <p class="text-[.68rem] text-[#555] mb-2">{w.date}</p>
-            <h2 class="font-black text-sm leading-snug mb-3 group-hover:text-[#e85c00] transition-colors">
+            <p class="text-[.65rem] text-[#444] tracking-widest mb-2 font-mono">{w.date}</p>
+            <h2 class="font-black text-[.92rem] leading-snug mb-3 text-[#f0f0f0] group-hover:text-[#e85c00] transition-colors">
               {w.title}
             </h2>
-            <p class="text-[#888] text-xs leading-relaxed mb-4 line-clamp-2">{w.summary}</p>
-            <div class="flex flex-wrap gap-1">
+            <p class="text-[#666] text-xs leading-relaxed mb-4 line-clamp-2">{w.summary}</p>
+            <div class="flex flex-wrap gap-1 mb-3">
               {w.tags.map(t => (
-                <span class="text-[.6rem] border border-[#333] text-[#666] px-2 py-[2px]">#{t}</span>
+                <span class="text-[.6rem] border border-[#2a2a2a] text-[#555] px-2 py-[2px]">#{t}</span>
               ))}
+            </div>
+            <div class="flex items-center gap-1 text-[.72rem] text-[#e85c00] font-bold mt-3 border-t border-[#1e1e1e] pt-3">
+              詳細を見る <span class="text-xs">→</span>
             </div>
           </div>
         </a>
@@ -150,47 +171,47 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
   </section>
 
   <!-- CTA -->
-  <section class="py-16 px-[5%] bg-[#111] border-t border-[#252525] text-center">
-    <h2 class="text-xl font-black mb-3">あなたの1台もTHREEWAYSで</h2>
-    <p class="text-[#888] text-sm mb-8">カスタムのご相談はLINEから。まずはお気軽にどうぞ。</p>
+  <section class="py-16 px-[5%] bg-[#111] border-t border-[#1e1e1e] text-center">
+    <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-3 flex items-center justify-center gap-2">
+      <span class="w-5 h-px bg-[#e85c00]"></span>Contact<span class="w-5 h-px bg-[#e85c00]"></span>
+    </p>
+    <h2 class="text-xl font-black mb-3 text-white">あなたの1台もTHREEWAYSで</h2>
+    <p class="text-[#666] text-sm mb-8">カスタムのご相談はLINEから。まずはお気軽にどうぞ。</p>
     <div class="flex gap-4 justify-center flex-wrap">
-      <a href="/#contact" class="bg-[#e85c00] text-white font-black px-8 py-3 text-sm tracking-wide hover:bg-[#ff7520] transition-colors">
+      <a href="/#contact"
+         class="bg-[#e85c00] text-white font-black px-8 py-3 text-sm tracking-wide hover:bg-[#ff7520] transition-colors">
         LINEで無料相談する
       </a>
-      <a href="/" class="border border-white/40 text-white px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all">
+      <a href="/"
+         class="border border-[#333] text-[#aaa] px-8 py-3 text-sm tracking-wide hover:border-[#e85c00] hover:text-[#e85c00] transition-all">
         トップに戻る
       </a>
     </div>
   </section>
 </Layout>
 
+<style>
+  #filter-bar::-webkit-scrollbar { display: none; }
+</style>
+
 <script>
-// カテゴリフィルター
-const buttons = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.work-card');
+const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+const cards   = document.querySelectorAll<HTMLElement>('.work-card');
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const cat = btn.getAttribute('data-cat');
+    const cat = btn.dataset.cat ?? 'すべて';
 
-    // ボタンのアクティブ状態
     buttons.forEach(b => {
-      b.className = b.className
-        .replace('bg-[#e85c00] border-[#e85c00] text-white', '')
-        + ' border-[#333] text-[#888]';
+      b.classList.remove('bg-[#e85c00]', 'border-[#e85c00]', 'text-white');
+      b.classList.add('border-[#2e2e2e]', 'text-[#777]');
     });
-    btn.className = btn.className
-      .replace('border-[#333] text-[#888]', '')
-      + ' bg-[#e85c00] border-[#e85c00] text-white';
+    btn.classList.add('bg-[#e85c00]', 'border-[#e85c00]', 'text-white');
+    btn.classList.remove('border-[#2e2e2e]', 'text-[#777]');
 
-    // カードの表示/非表示
     cards.forEach(card => {
-      const cardCat = card.getAttribute('data-category');
-      if (cat === 'すべて' || cardCat === cat) {
-        (card as HTMLElement).style.display = 'block';
-      } else {
-        (card as HTMLElement).style.display = 'none';
-      }
+      const match = cat === 'すべて' || card.dataset.category === cat;
+      card.style.display = match ? 'block' : 'none';
     });
   });
 });
