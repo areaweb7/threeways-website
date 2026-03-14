@@ -1,0 +1,257 @@
+---
+// src/pages/works/[slug].astro — 施工事例詳細（動的ルート）
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+  const works = [
+    {
+      slug: 'g-class-tiffany-blue',
+      title: 'Mercedes-Benz Gクラス ティファニーブルー全塗装',
+      category: '全塗装・カスタム',
+      tags: ['メルセデス', 'Gクラス', '全塗装', 'カラーチェンジ'],
+      img: '/cars/car9.jpg',
+      images: ['/cars/car9.jpg', '/cars/car11.jpg', '/cars/car6.jpg'],
+      date: '2025年11月',
+      vehicle: 'Mercedes-Benz G350d（W463A）',
+      menu: ['全塗装（ティファニーブルー）', 'ホイール塗装（グロスブラック）', 'フロントリップ交換', 'リアスポイラー追加'],
+      summary: 'オーナー様が長年温めてきた「ティファニーブルーのGクラス」というビジョンを形に。特調色の調合から始まり、全工程を職人が手作業で仕上げました。',
+      body: [
+        'オーナー様からご依頼いただいたのは「ティファニーの箱のあの青を車に乗せたい」という一言でした。',
+        '市販カラーでは存在しない色のため、塗料の調合から始めてサンプルを複数作成。光の当たり方によって微妙に表情が変わるパールを混ぜ込み、理想の色を再現しました。',
+        'ホイールはグロスブラックで塗装し、エアロパーツも追加してボディとのコントラストを強調。ティファニーブルー×ブラックの上品な配色が完成しました。',
+        'オーナー様より「想像以上の仕上がりで感動した」というお言葉をいただきました。',
+      ],
+    },
+    {
+      slug: 'g-class-white-custom',
+      title: 'Mercedes-Benz Gクラス ホワイト×ブラック カスタム',
+      category: 'エアロ・カスタム',
+      tags: ['メルセデス', 'Gクラス', 'ホワイト', 'エアロ'],
+      img: '/cars/car11.jpg',
+      images: ['/cars/car11.jpg', '/cars/car9.jpg'],
+      date: '2025年10月',
+      vehicle: 'Mercedes-Benz G350d（W463A）',
+      menu: ['エアロパーツ交換（フロント・サイド・リア）', 'ルーフレール塗装（グロスブラック）', 'フェンダーカバー塗装', 'ホイール交換'],
+      summary: 'ホワイトボディの清潔感を活かしながら、ブラックパーツで引き締めたコントラストカスタム。王道の2トーンを高いクオリティで実現しました。',
+      body: [
+        'ホワイト×ブラックはGクラスカスタムの王道コンビネーション。ただし「どのパーツをブラックにするか」の選択でクオリティが大きく変わります。',
+        'ルーフレール・フロントグリル・エアロパーツをすべてグロスブラックに統一し、足元はマットブラックのホイールで締めました。',
+        '塗装はG-TEC（グループ技術部門）が担当し、パーツ間の色合わせも完璧に揃えています。',
+      ],
+    },
+    {
+      slug: 'g-class-gold-black',
+      title: 'Mercedes-Benz Gクラス ゴールド×ブラック ラッピング',
+      category: 'ラッピング',
+      tags: ['メルセデス', 'Gクラス', 'ラッピング', 'ゴールド'],
+      img: '/cars/car6.jpg',
+      images: ['/cars/car6.jpg', '/cars/car8.jpg'],
+      date: '2025年9月',
+      vehicle: 'Mercedes-Benz G550（W463A）',
+      menu: ['フルボディラッピング（ゴールド×ブラック）', 'ホイール塗装（ゴールド）', 'エンブレム交換', 'ドアミラーカバーラッピング'],
+      summary: 'ゴールドとブラックを大胆に組み合わせたフルラッピング。見る角度によって輝き方が変わる特殊フィルムを使用。',
+      body: [
+        'ゴールドとブラックの組み合わせは大胆ですが、Gクラスの四角いボディラインと相性が抜群です。',
+        '特殊なクロームゴールドフィルムを使用し、光の当たり方によって輝き方が変化する仕様に。ホイールも同系色のゴールドに塗装して統一感を出しました。',
+        'ラッピングは塗装と違い、将来的に剥がして元の色に戻すことも可能。オーナー様も「大胆に攻めて良かった」とおっしゃっています。',
+      ],
+    },
+    {
+      slug: 'maybach-vclass-custom',
+      title: 'Mercedes-Benz Maybach Vクラス フルカスタム',
+      category: 'フルカスタム',
+      tags: ['マイバッハ', 'Vクラス', 'フルカスタム', 'インテリア'],
+      img: '/cars/car4.jpg',
+      images: ['/cars/car4.jpg'],
+      date: '2025年8月',
+      vehicle: 'Mercedes-Benz V300d Maybach仕様',
+      menu: ['エクステリアフルカスタム', '特注シート制作（本革）', 'アンビエントライト追加', 'サンルーフフィルム施工', '電動オットマン追加'],
+      summary: 'マイバッハ仕様のVクラスをさらに上質に。エクステリアからインテリアまで全方位のカスタムで、唯一無二の高級移動空間を実現。',
+      body: [
+        'マイバッハ仕様のVクラスをベースに、さらなる上質感を追求したフルカスタムです。',
+        'インテリアは特注の本革シートを制作。座面・バックレスト・ヘッドレストすべてを専用デザインで仕立て、アンビエントライトを組み合わせました。',
+        'エクステリアもエアロパーツとホイールを刷新し、外装から内装まで一貫したプレミアム感に仕上げています。',
+      ],
+    },
+    {
+      slug: 'mustang-shelby-gt500',
+      title: 'Ford Mustang Shelby GT500 カスタム仕上げ',
+      category: 'カスタム・販売',
+      tags: ['マスタング', 'シェルビー', 'GT500', 'アメ車'],
+      img: '/cars/car5.jpg',
+      images: ['/cars/car5.jpg'],
+      date: '2025年7月',
+      vehicle: 'Ford Mustang Shelby GT500',
+      menu: ['エアロパーツ追加（フロント・リア）', 'ホイール交換（20インチ）', 'マフラー交換', 'ローダウン施工'],
+      summary: '希少なシェルビーGT500のポテンシャルをさらに引き出すカスタム。外観の迫力を高めながら走行性能も向上。',
+      body: [
+        'シェルビーGT500は北米でも希少なモデル。このポテンシャルをさらに高めるべく、パフォーマンス系カスタムを中心に施工しました。',
+        'エアロパーツはGT500専用品を採用し、ホイールは20インチに換装。マフラー交換でサウンドも迫力ある仕上がりに。',
+        'オーナー様も「乗るたびにテンションが上がる」とおっしゃっています。',
+      ],
+    },
+    {
+      slug: 'g-class-all-black',
+      title: 'Mercedes-Benz Gクラス オールブラック カスタム',
+      category: '全塗装・カスタム',
+      tags: ['メルセデス', 'Gクラス', 'ブラック', 'フルカスタム'],
+      img: '/cars/car8.jpg',
+      images: ['/cars/car8.jpg', '/cars/car6.jpg'],
+      date: '2025年6月',
+      vehicle: 'Mercedes-Benz G350d（W463）',
+      menu: ['全塗装（グロスブラック）', 'ホイール塗装（マットブラック）', 'エアロパーツ交換', 'エンブレム塗装（ブラック）', 'テールランプスモーク施工'],
+      summary: 'ボディからホイール、エアロ、エンブレムまですべてをブラックで統一。重厚感と精悍さを極限まで高めたオールブラックカスタム。',
+      body: [
+        'オールブラックカスタムはGクラスの中でも特に人気の高い仕様。ただし「ただ黒いだけ」にならないよう、マット・グロス・サテンの異なる質感を部位によって使い分けました。',
+        'ボディはグロスブラックで鏡のような輝きに、ホイールはマットブラックで落ち着いた精悍さに、エアロはサテンブラックで中間の質感を演出。',
+        'テールランプのスモーク施工でリアビューも引き締まりました。',
+      ],
+    },
+    {
+      slug: 'tesla-model3-custom',
+      title: 'Tesla Model 3 エアロカスタム',
+      category: 'エアロ・カスタム',
+      tags: ['テスラ', 'モデル3', 'エアロ', 'EV'],
+      img: '/cars/car3.jpg',
+      images: ['/cars/car3.jpg'],
+      date: '2025年5月',
+      vehicle: 'Tesla Model 3 Performance',
+      menu: ['フロントリップスポイラー追加', 'サイドスカート追加', 'リアスポイラー交換', 'ホイールフィルム施工', 'ローダウン施工'],
+      summary: 'テスラのEVながら、スポーティなエアロカスタムで走りの気持ちよさを外観でも表現。環境性能と迫力を両立。',
+      body: [
+        'テスラModel 3はEVとは思えないほど走りが楽しい車。その魅力をエクステリアでも表現するエアロカスタムです。',
+        'テスラ専用に設計されたエアロキットを使用し、フロント・サイド・リアのバランスを整えました。',
+        'ホイールのフィルム施工で足元も引き締め、ローダウンで低重心のスポーティなシルエットに。',
+      ],
+    },
+    {
+      slug: 'camaro-zl1-custom',
+      title: 'Chevrolet Camaro ZL1 コンバーチブル カスタム',
+      category: 'カスタム・販売',
+      tags: ['カマロ', 'ZL1', 'コンバーチブル', 'アメ車'],
+      img: '/cars/car10.jpg',
+      images: ['/cars/car10.jpg'],
+      date: '2025年4月',
+      vehicle: 'Chevrolet Camaro ZL1 Convertible',
+      menu: ['エアロパーツ追加', 'ホイール交換（20インチ）', 'ブレーキキャリパー塗装', 'インテリア内張り交換'],
+      summary: '超希少なZL1コンバーチブルをカスタム仕上げで販売。エアロとホイールで存在感をさらに高め、特別な1台に。',
+      body: [
+        'ZL1コンバーチブルは国内流通が極めて少ない希少モデル。THREEWAYSが独自ルートで仕入れ、カスタム仕上げで販売しました。',
+        'ホイールを20インチに換装し、エアロパーツで迫力を追加。ブレーキキャリパーをレッドに塗装してスポーティ感を演出。',
+        '販売後もオーナー様から定期的にメンテナンスのご依頼をいただいています。',
+      ],
+    },
+  ];
+
+  return works.map(w => ({ params: { slug: w.slug }, props: { work: w } }));
+}
+
+const { work } = Astro.props;
+---
+
+<Layout title={`${work.title} | 施工事例 | THREEWAYS`} description={work.summary}>
+  <Header />
+
+  <!-- ヒーロー画像 -->
+  <section class="pt-[62px] bg-[#0a0a0a]">
+    <div class="relative h-[420px] overflow-hidden">
+      <img src={work.img} alt={work.title}
+           class="w-full h-full object-cover" style="filter:brightness(.5)" />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 px-[5%] pb-10">
+        <div class="max-w-4xl mx-auto">
+          <span class="bg-[#e85c00] text-white text-[.62rem] font-black px-3 py-1 tracking-widest mb-4 inline-block">
+            {work.category}
+          </span>
+          <h1 class="text-[clamp(1.6rem,3.5vw,2.8rem)] font-black leading-tight">{work.title}</h1>
+          <p class="text-[#888] text-sm mt-2">{work.date} 施工完了</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 本文 -->
+  <section class="py-16 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-[1fr_280px] gap-12">
+
+      <!-- 左：本文 -->
+      <div>
+        <!-- 概要 -->
+        <div class="border-l-2 border-[#e85c00] pl-5 mb-10">
+          <p class="text-[#ccc] text-sm leading-loose">{work.summary}</p>
+        </div>
+
+        <!-- 写真ギャラリー -->
+        {work.images.length > 1 && (
+          <div class="grid grid-cols-2 gap-3 mb-10">
+            {work.images.map((img: string, i: number) => (
+              <div class={`overflow-hidden ${i === 0 ? 'col-span-2 h-[300px]' : 'h-[180px]'}`}>
+                <img src={img} alt={`${work.title} ${i + 1}`} loading="lazy"
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- 詳細テキスト -->
+        <div class="space-y-5 mb-10">
+          {work.body.map((p: string) => (
+            <p class="text-[#aaa] text-sm leading-[2]">{p}</p>
+          ))}
+        </div>
+
+        <!-- タグ -->
+        <div class="flex flex-wrap gap-2 pt-6 border-t border-[#252525]">
+          {work.tags.map((t: string) => (
+            <span class="text-[.7rem] border border-[#333] text-[#666] px-3 py-1">#{t}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- 右：施工メニュー・CTA -->
+      <div class="space-y-6">
+        <!-- 施工メニュー -->
+        <div class="bg-[#111] border border-[#252525] p-6">
+          <h3 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-4">施工内容</h3>
+          <ul class="space-y-2">
+            {work.menu.map((m: string) => (
+              <li class="flex items-start gap-2 text-sm text-[#ccc]">
+                <span class="text-[#e85c00] mt-0.5">✓</span>
+                {m}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- 車両情報 -->
+        <div class="bg-[#111] border border-[#252525] p-6">
+          <h3 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-3">車両</h3>
+          <p class="text-sm text-[#ccc]">{work.vehicle}</p>
+        </div>
+
+        <!-- LINE相談CTA -->
+        <div class="bg-[#111] border border-[#e85c0059] p-6 text-center">
+          <p class="text-sm font-bold mb-2">同様のカスタムをご希望の方</p>
+          <p class="text-[#888] text-xs mb-4 leading-loose">まずはLINEでお気軽にご相談ください。見積もり無料です。</p>
+          <a href="/#contact"
+             class="block bg-[#e85c00] text-white font-black text-sm py-3 text-center hover:bg-[#ff7520] transition-colors">
+            LINEで相談する
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 関連・一覧に戻る -->
+  <section class="py-10 px-[5%] bg-[#111] border-t border-[#252525]">
+    <div class="max-w-4xl mx-auto flex justify-between items-center flex-wrap gap-4">
+      <a href="/works/" class="text-[#888] text-sm hover:text-[#e85c00] transition-colors">
+        ← 施工事例一覧に戻る
+      </a>
+      <a href="/" class="text-[#888] text-sm hover:text-[#e85c00] transition-colors">
+        トップページへ →
+      </a>
+    </div>
+  </section>
+</Layout>
