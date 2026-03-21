@@ -1,0 +1,42 @@
+---
+const lineUrl = import.meta.env.PUBLIC_LINE_URL || 'https://line.me/R/ti/p/';
+---
+<footer class="bg-[#060606] border-t border-[#252525] pt-16 pb-8 px-[5%]">
+  <div class="grid md:grid-cols-3 gap-16 mb-12">
+    <div>
+      <a href="/" class="text-2xl font-black tracking-[.18em] text-white no-underline block mb-4">
+        THREE<em class="text-[#e85c00] not-italic">WAYS</em>
+      </a>
+      <p class="text-[#888] text-sm leading-loose">
+        岐阜県のカスタム輸入車専門店。<br/>
+        カスタム製作・輸入車販売・修理メンテナンスをグループでトータルサポート。<br/>
+        国家資格整備士在籍・自社認証工場完備。
+      </p>
+      <p class="text-sm text-[#888] mt-4">グループ会社：<a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00]">G-TEC（技術部門）</a></p>
+    </div>
+    <div>
+      <h4 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase border-b border-[#252525] pb-2 mb-5">Site</h4>
+      <ul class="space-y-3 text-sm text-[#888]">
+        <li><a href="/works/" class="hover:text-[#e85c00] transition-colors">施工事例</a></li>
+        <li><a href="/blog/" class="hover:text-[#e85c00] transition-colors">ブログ・お知らせ</a></li>
+        <li><a href="/contact/" class="hover:text-[#e85c00] transition-colors">お問い合わせ・アクセス</a></li>
+        <li><a href="/gtec/" class="hover:text-[#e85c00] transition-colors">G-TECサービス</a></li>
+        <li><a href="/#services" class="hover:text-[#e85c00] transition-colors">サービス一覧（TOP）</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase border-b border-[#252525] pb-2 mb-5">Links</h4>
+      <ul class="space-y-3 text-sm text-[#888]">
+        <li><a href="https://www.youtube.com/@ThreeWaysGifu" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">YouTube公式チャンネル</a></li>
+        <li><a href="https://www.carsensor.net/shop/gifu/328993001/?SHOPTR=1" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">カーセンサー在庫</a></li>
+        <li><a href="https://www.goo-net.com/usedcar_shop/0206839/detail.html" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">グーネット在庫</a></li>
+        <li><a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">G-TEC公式サイト</a></li>
+        <li><a href={lineUrl} target="_blank" rel="noopener" class="hover:text-[#e85c00] transition-colors">LINE公式アカウント</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-[#252525] pt-6 flex flex-wrap justify-between items-center gap-2 text-xs text-[#666]">
+    <span>© 2026 THREEWAYS. All rights reserved.</span>
+    <span>〒500-8282 岐阜県岐阜市 / TEL: 058-214-4420</span>
+  </div>
+</footer>

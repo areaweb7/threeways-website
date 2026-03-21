@@ -2,6 +2,7 @@
 // src/pages/works/index.astro — Sanity連携版
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import { client } from '../../lib/sanity';
 
 // Sanityからデータ取得（なければstatic fallback）
@@ -133,14 +134,16 @@ const categories = ['すべて', '全塗装・カスタム', 'エアロ・カス
     <h2 class="text-xl font-black mb-3 text-white">あなたの1台もTHREEWAYSで</h2>
     <p class="text-[#666] text-sm mb-8">カスタムのご相談はLINEから。まずはお気軽にどうぞ。</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="/#contact" style="background:#e85c00;color:#fff;font-weight:900;padding:.75rem 2rem;font-size:.875rem;letter-spacing:.1em;text-decoration:none;">
-        LINEで無料相談する
+      <a href="/contact/" style="background:#e85c00;color:#fff;font-weight:900;padding:.75rem 2rem;font-size:.875rem;letter-spacing:.1em;text-decoration:none;">
+        お問い合わせ・LINE
       </a>
       <a href="/" style="border:1px solid #333;color:#aaa;padding:.75rem 2rem;font-size:.875rem;text-decoration:none;">
         トップに戻る
       </a>
     </div>
   </section>
+
+  <Footer />
 </Layout>
 
 <style>

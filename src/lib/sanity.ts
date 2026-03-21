@@ -37,8 +37,15 @@ export const postsQuery = `*[_type == "post"] | order(publishedAt desc) {
   "mainImage": mainImage.asset->url,
 }`
 
-// ブログ詳細
+// ブログ詳細（本文内画像のURLを解決）
 export const postBySlugQuery = `*[_type == "post" && slug.current == $slug][0] {
-  _id, title, slug, category, summary, publishedAt, body,
+  _id, title, slug, category, summary, publishedAt,
   "mainImage": mainImage.asset->url,
+  body[]{
+    ...,
+    _type == "image" => {
+      ...,
+      "asset": asset->{ url }
+    }
+  }
 }`

@@ -1,0 +1,100 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const lineUrl = import.meta.env.PUBLIC_LINE_URL || 'https://line.me/R/ti/p/';
+
+const services = [
+  {
+    title: 'ホイール修理',
+    desc: '傷・ガリ傷・歪みなど、ホイールのダメージを修復。国内外1,000社以上のパートナー実績を持つ技術で、安全性と見た目を取り戻します。',
+    icon: '🛞',
+  },
+  {
+    title: '板金・塗装',
+    desc: '小さな擦り傷から大きな損傷まで。色合わせから仕上げまで、精緻な工程でボディを再生します。THREEWAYSのカスタム施工とも連携可能です。',
+    icon: '🎨',
+  },
+  {
+    title: '内装リペア',
+    desc: 'シート・ダッシュボード・天井張り替えなど、車内の傷みを高品質な素材と技術で補修。高級車・輸入車の内装にも対応します。',
+    icon: '🪑',
+  },
+  {
+    title: 'ガラスコーティング',
+    desc: 'ボディの輝きを長く保つ最新のコーティング。撥水・防汚・艶の持続で、納車後のメンテナンスもサポートします。',
+    icon: '💎',
+  },
+];
+---
+
+<Layout
+  title="G-TECサービス（修理・リペア） | THREEWAYS"
+  description="THREEWAYSグループの技術部門 G-TEC。ホイール修理・板金塗装・内装・コーティング。ご依頼はTHREEWAYSのLINE・電話で一括受付。"
+>
+  <Header />
+
+  <section class="pt-[62px] bg-[#0a0a0a]">
+    <div class="relative h-[240px] overflow-hidden flex items-end"
+         style="background-image:url('/cars/car6.jpg');background-size:cover;background-position:center;">
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.85)"></div>
+      <div class="relative z-10 px-[5%] pb-10 w-full">
+        <nav class="text-xs text-[#555] mb-3">
+          <a href="/" class="hover:text-[#e85c00] transition-colors">TOP</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#888]">G-TEC</span>
+        </nav>
+        <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-2">Group Technical Division</p>
+        <h1 class="text-[clamp(1.6rem,3.5vw,2.6rem)] font-black tracking-wide text-white">G-TEC サービス</h1>
+        <p class="text-[#aaa] text-sm mt-3 max-w-2xl leading-relaxed">
+          補助金・法人構成の関係で現在は別法人として運営。将来的にはTHREEWAYSへ統合予定です。修理・リペアのご依頼は<strong class="text-[#e85c00]">THREEWAYSのLINE・電話にて一括受付</strong>しています。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-4xl mx-auto">
+      <div class="border border-[#e85c0045] bg-[#e85c0008] p-6 mb-12 text-sm text-[#ccc] leading-loose">
+        <p class="mb-2">
+          代表・後藤正樹が率いるグループ技術部門として、ホイールから板金塗装、内装、コーティングまで幅広く対応しています。
+        </p>
+        <a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00] font-bold hover:underline">
+          G-TEC 公式サイト（g-tec-repair.com）→
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {services.map(s => (
+          <div class="bg-[#111] border border-[#252525] p-7 hover:border-[#e85c0059] transition-colors">
+            <div class="text-3xl mb-3">{s.icon}</div>
+            <h2 class="text-lg font-black text-white mb-3">{s.title}</h2>
+            <p class="text-[#aaa] text-sm leading-[1.9]">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 px-[5%] bg-[#111] border-t border-[#252525]">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-xl font-black mb-3">ご依頼・お見積もり</h2>
+      <p class="text-[#888] text-sm mb-8 leading-relaxed">
+        G-TEC単体への直接連絡ではなく、<strong class="text-[#ccc]">THREEWAYS経由でスムーズにご案内</strong>します。まずはお気軽にLINEへ。
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href={lineUrl} target="_blank" rel="noopener"
+           class="bg-[#06C755] text-white font-black px-8 py-3 text-sm hover:opacity-90 transition-opacity">
+          LINEで相談
+        </a>
+        <a href="/contact/"
+           class="border border-[#333] text-[#ccc] px-8 py-3 text-sm hover:border-[#e85c00] hover:text-[#e85c00] transition-colors">
+          お問い合わせフォーム
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

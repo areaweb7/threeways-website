@@ -1,5 +1,5 @@
 ---
-// Header.astro
+const lineUrl = import.meta.env.PUBLIC_LINE_URL || 'https://line.me/R/ti/p/';
 ---
 <header class="fixed top-0 w-full z-50 bg-[#0a0a0a]/95 backdrop-blur border-b border-[#252525] h-[62px] flex items-center justify-between px-[4%]">
   <a href="/" class="flex items-end gap-1 no-underline">
@@ -8,16 +8,19 @@
   </a>
 
   <!-- Desktop nav -->
-  <nav class="hidden lg:flex items-center gap-6">
-    <a href="#reasons" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">選ばれる理由</a>
-    <a href="#gallery" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">施工実績</a>
-    <a href="#team" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">チーム</a>
-    <a href="#youtube" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">YouTube</a>
-    <a href="#services" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">サービス</a>
-    <a href="#stock" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">在庫車両</a>
-    <a href="#reviews" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">お客様の声</a>
-    <a href="#contact" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">アクセス</a>
-    <a href="#contact" class="bg-[#06C755] text-white text-[.82rem] font-bold px-4 py-2 rounded-sm tracking-wide hover:opacity-85 transition-opacity">LINE相談</a>
+  <nav class="hidden lg:flex items-center gap-5 flex-wrap justify-end">
+    <a href="/works/" class="text-[#e85c00] text-[.82rem] font-bold tracking-wide hover:opacity-85 transition-opacity">施工事例</a>
+    <a href="/blog/" class="text-[#e85c00] text-[.82rem] font-bold tracking-wide hover:opacity-85 transition-opacity">ブログ</a>
+    <a href="/gtec/" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">G-TEC</a>
+    <a href="/#reasons" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">選ばれる理由</a>
+    <a href="/#gallery" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">施工実績</a>
+    <a href="/#team" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">チーム</a>
+    <a href="/#youtube" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">YouTube</a>
+    <a href="/#services" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">サービス</a>
+    <a href="/#stock" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">在庫車両</a>
+    <a href="/#reviews" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">お客様の声</a>
+    <a href="/contact/" class="text-[#aaa] text-[.82rem] tracking-wide hover:text-[#e85c00] transition-colors">お問い合わせ</a>
+    <a href={lineUrl} target="_blank" rel="noopener" class="bg-[#06C755] text-white text-[.82rem] font-bold px-4 py-2 rounded-sm tracking-wide hover:opacity-85 transition-opacity">LINE相談</a>
   </nav>
 
   <!-- Hamburger -->
@@ -28,16 +31,20 @@
   </button>
 
   <!-- Mobile menu -->
-  <nav id="mobile-nav" class="hidden fixed top-[62px] left-0 right-0 bottom-0 bg-[#111] flex-col gap-6 p-8 z-50 overflow-y-auto lg:hidden">
-    <a href="#reasons" class="text-lg text-[#aaa]">選ばれる理由</a>
-    <a href="#gallery" class="text-lg text-[#aaa]">施工実績</a>
-    <a href="#team" class="text-lg text-[#aaa]">チーム</a>
-    <a href="#youtube" class="text-lg text-[#aaa]">YouTube</a>
-    <a href="#services" class="text-lg text-[#aaa]">サービス</a>
-    <a href="#stock" class="text-lg text-[#aaa]">在庫車両</a>
-    <a href="#reviews" class="text-lg text-[#aaa]">お客様の声</a>
-    <a href="#contact" class="text-lg text-[#aaa]">アクセス</a>
-    <a href="#contact" class="bg-[#06C755] text-white font-bold px-6 py-3 text-center">LINEで相談</a>
+  <nav id="mobile-nav" class="hidden fixed top-[62px] left-0 right-0 bottom-0 bg-[#111] flex-col gap-5 p-8 z-50 overflow-y-auto lg:hidden">
+    <a href="/works/" class="text-lg text-[#e85c00] font-bold">施工事例</a>
+    <a href="/blog/" class="text-lg text-[#e85c00] font-bold">ブログ</a>
+    <a href="/gtec/" class="text-lg text-[#aaa]">G-TEC</a>
+    <a href="/contact/" class="text-lg text-[#aaa]">お問い合わせ</a>
+    <hr class="border-[#252525]" />
+    <a href="/#reasons" class="text-lg text-[#aaa]">選ばれる理由</a>
+    <a href="/#gallery" class="text-lg text-[#aaa]">施工実績</a>
+    <a href="/#team" class="text-lg text-[#aaa]">チーム</a>
+    <a href="/#youtube" class="text-lg text-[#aaa]">YouTube</a>
+    <a href="/#services" class="text-lg text-[#aaa]">サービス</a>
+    <a href="/#stock" class="text-lg text-[#aaa]">在庫車両</a>
+    <a href="/#reviews" class="text-lg text-[#aaa]">お客様の声</a>
+    <a href={lineUrl} target="_blank" rel="noopener" class="bg-[#06C755] text-white font-bold px-6 py-3 text-center">LINEで相談</a>
   </nav>
 </header>
 
@@ -48,17 +55,19 @@ btn?.addEventListener('click', () => {
   nav?.classList.toggle('hidden');
   nav?.classList.toggle('flex');
 });
-// Close on link click
 document.querySelectorAll('#mobile-nav a').forEach(a => {
   a.addEventListener('click', () => {
     nav?.classList.add('hidden');
     nav?.classList.remove('flex');
   });
 });
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
+document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const target = document.querySelector((a as HTMLAnchorElement).getAttribute('href') || '');
+    const href = a.getAttribute('href') || '';
+    const hash = href.startsWith('/#') ? href.slice(1) : href;
+    if (!hash.startsWith('#')) return;
+    if (window.location.pathname !== '/') return;
+    const target = document.querySelector(hash);
     if (target) {
       e.preventDefault();
       window.scrollTo({ top: (target as HTMLElement).offsetTop - 62, behavior: 'smooth' });

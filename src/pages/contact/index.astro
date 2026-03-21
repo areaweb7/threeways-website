@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const lineUrl = import.meta.env.PUBLIC_LINE_URL || 'https://line.me/R/ti/p/';
+const formEndpoint =
+  import.meta.env.PUBLIC_FORMSPREE_ENDPOINT ||
+  (import.meta.env.PUBLIC_FORMSPREE_FORM_ID
+    ? `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_FORM_ID}`
+    : '');
+const lineQr = import.meta.env.PUBLIC_LINE_QR_SRC || ''; // 例: /line-qr.png を public に置く
+
+const success = Astro.url.searchParams.get('success') === '1';
+const origin = Astro.url.origin;
+---
+
+<Layout
+  title="お問い合わせ・アクセス | THREEWAYS"
+  description="岐阜のカスタム輸入車 THREEWAYS へのお問い合わせ。カスタム・販売・修理のご相談はお電話・LINE・フォームにて受付中。"
+>
+  <Header />
+
+  <section class="pt-[62px] bg-[#0a0a0a]">
+    <div class="relative h-[200px] overflow-hidden flex items-end"
+         style="background-image:url('/cars/car8.jpg');background-size:cover;background-position:center;">
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.82)"></div>
+      <div class="relative z-10 px-[5%] pb-8 w-full">
+        <nav class="text-xs text-[#555] mb-3">
+          <a href="/" class="hover:text-[#e85c00] transition-colors">TOP</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#888]">お問い合わせ</span>
+        </nav>
+        <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-2">Contact</p>
+        <h1 class="text-[clamp(1.6rem,3.5vw,2.4rem)] font-black tracking-wide text-white">お問い合わせ・アクセス</h1>
+      </div>
+    </div>
+  </section>
+
+  {success && (
+    <div class="bg-[#0d2a0d] border-b border-[#1e4d1e] px-[5%] py-4 text-center text-sm text-[#a6e0a6]">
+      お問い合わせを送信しました。担当より折り返しご連絡いたします。
+    </div>
+  )}
+
+  <section class="py-14 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-[1fr_340px] gap-12">
+      <div>
+        <h2 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-4">Webフォーム</h2>
+        {formEndpoint ? (
+          <form action={formEndpoint} method="POST" class="space-y-5">
+            <input type="hidden" name="_subject" value="[THREEWAYS] Webサイトお問い合わせ" />
+            <input type="hidden" name="_next" value={`${origin}/contact/?success=1`} />
+            <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+
+            <div>
+              <label class="block text-xs text-[#888] mb-2">お名前 <span class="text-[#e85c00]">*</span></label>
+              <input required name="name" type="text" autocomplete="name"
+                     class="w-full bg-[#111] border border-[#2a2a2a] px-4 py-3 text-sm text-[#eee] focus:border-[#e85c00] outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs text-[#888] mb-2">メールアドレス <span class="text-[#e85c00]">*</span></label>
+              <input required name="email" type="email" autocomplete="email"
+                     class="w-full bg-[#111] border border-[#2a2a2a] px-4 py-3 text-sm text-[#eee] focus:border-[#e85c00] outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs text-[#888] mb-2">電話番号</label>
+              <input name="tel" type="tel" autocomplete="tel"
+                     class="w-full bg-[#111] border border-[#2a2a2a] px-4 py-3 text-sm text-[#eee] focus:border-[#e85c00] outline-none" />
+            </div>
+            <div>
+              <label class="block text-xs text-[#888] mb-2">お問い合わせ種別 <span class="text-[#e85c00]">*</span></label>
+              <select required name="inquiry_type"
+                      class="w-full bg-[#111] border border-[#2a2a2a] px-4 py-3 text-sm text-[#eee] focus:border-[#e85c00] outline-none">
+                <option value="">選択してください</option>
+                <option value="custom">カスタム・施工のご相談</option>
+                <option value="purchase">車両購入・在庫について</option>
+                <option value="sell">買取について</option>
+                <option value="gtec">修理・板金・G-TECについて</option>
+                <option value="other">その他</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-[#888] mb-2">お問い合わせ内容 <span class="text-[#e85c00]">*</span></label>
+              <textarea required name="message" rows={8}
+                        class="w-full bg-[#111] border border-[#2a2a2a] px-4 py-3 text-sm text-[#eee] focus:border-[#e85c00] outline-none resize-y"></textarea>
+            </div>
+            <p class="text-[.65rem] text-[#555] leading-relaxed">
+              <span class="text-[#e85c00]">*</span> は必須です。送信内容は当社のプライバシーポリシーに基づき取り扱います。
+            </p>
+            <button type="submit"
+                    class="w-full md:w-auto bg-[#e85c00] text-white font-black text-sm px-10 py-4 hover:bg-[#ff7520] transition-colors tracking-wide">
+              送信する
+            </button>
+          </form>
+        ) : (
+          <div class="bg-[#111] border border-[#252525] p-8 text-sm text-[#888] leading-loose">
+            <p class="mb-4">Webフォームの送信先が未設定です。Vercel の環境変数 <code class="text-[#e85c00]">PUBLIC_FORMSPREE_FORM_ID</code>（または <code class="text-[#e85c00]">PUBLIC_FORMSPREE_ENDPOINT</code>）を設定してください。</p>
+            <p class="mb-2">お急ぎの方はお電話またはLINEよりご連絡ください。</p>
+            <a href="mailto:mail@areaweb.jp?subject=%5BTHREEWAYS%5D%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" class="text-[#e85c00] font-bold hover:underline">mail@areaweb.jp</a>
+          </div>
+        )}
+      </div>
+
+      <aside class="space-y-8">
+        <div class="bg-[#111] border border-[#252525] p-6">
+          <h3 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-4">LINE</h3>
+          <p class="text-xs text-[#888] leading-relaxed mb-4">
+            カスタムのご相談・見積もりはLINEがスムーズです。G-TEC（修理・板金）のご依頼も同一窓口で受け付けています。
+          </p>
+          {lineQr ? (
+            <div class="mb-4 flex justify-center">
+              <img src={lineQr} alt="LINE QRコード" class="w-40 h-40 object-contain bg-white p-2 rounded" loading="lazy" />
+            </div>
+          ) : (
+            <p class="text-[.65rem] text-[#555] mb-4">QRコード画像は <code class="text-[#666]">public/line-qr.png</code> を配置し、環境変数 <code class="text-[#666]">PUBLIC_LINE_QR_SRC=/line-qr.png</code> で指定できます。</p>
+          )}
+          <a href={lineUrl} target="_blank" rel="noopener"
+             class="flex items-center justify-center gap-2 bg-[#06C755] text-white font-black py-3 text-sm hover:opacity-90 transition-opacity">
+            LINEで友だち追加・相談
+          </a>
+        </div>
+
+        <div class="bg-[#111] border border-[#252525] p-6">
+          <h3 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-4">電話</h3>
+          <a href="tel:0582144420" class="text-2xl font-black tracking-wider text-white block">058-214-4420</a>
+          <p class="text-xs text-[#666] mt-2">営業 9:00〜19:00（不定休）</p>
+        </div>
+
+        <div class="bg-[#111] border border-[#252525] p-6">
+          <h3 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-3">所在地</h3>
+          <p class="text-sm text-[#ccc]">〒500-8282 岐阜県岐阜市</p>
+          <p class="text-[.65rem] text-[#555] mt-2">※番地の公開はクライアント確認後に更新予定です。</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="pb-16 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-4">Map</h2>
+      <div class="bg-[#161616] border border-[#252525] overflow-hidden min-h-[320px]">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3248.5!2d136.744624!3d35.383784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDIzJzAxLjYiTiAxMzbCsDQ0JzQwLjYiRQ!5e0!3m2!1sja!2sjp!4v1"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          class="w-full h-[320px] border-none" style="filter:grayscale(70%) invert(85%)"
+          title="THREEWAYS 地図"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

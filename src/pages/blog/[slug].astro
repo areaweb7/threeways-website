@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { client, postBySlugQuery } from '../../lib/sanity';
+import { portableTextToHtml } from '../../lib/portableText';
+
+const slug = Astro.params.slug;
+if (!slug) {
+  return Astro.redirect('/blog/');
+}
+
+let post: any = null;
+try {
+  post = await client.fetch(postBySlugQuery, { slug });
+} catch {
+  post = null;
+}
+
+if (!post) {
+  return Astro.redirect('/blog/');
+}
+
+const bodyHtml = portableTextToHtml(post.body);
+const dateStr = post.publishedAt
+  ? new Date(post.publishedAt).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })
+  : '';
+---
+
+<Layout title={`${post.title} | ブログ | THREEWAYS`} description={post.summary ?? post.title}>
+  <Header />
+
+  <section class="pt-[62px] bg-[#0a0a0a]">
+    <div
+      class="relative min-h-[280px] overflow-hidden flex items-end"
+      style={post.mainImage
+        ? `background-image:url('${String(post.mainImage).replace(/'/g, "\\'")}');background-size:cover;background-position:center;`
+        : 'background:#111;'}
+    >
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.82)"></div>
+      <div class="relative z-10 px-[5%] pb-10 w-full">
+        <nav class="text-xs text-[#555] mb-3">
+          <a href="/" class="hover:text-[#e85c00] transition-colors">TOP</a>
+          <span class="mx-2">/</span>
+          <a href="/blog/" class="hover:text-[#e85c00] transition-colors">ブログ・お知らせ</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#888] line-clamp-1">{post.title}</span>
+        </nav>
+        {post.category && (
+          <span class="inline-block bg-[#e85c00] text-white text-[.62rem] font-black px-3 py-1 tracking-widest mb-3">
+            {post.category}
+          </span>
+        )}
+        <p class="text-[.65rem] text-[#666] mb-2 font-mono">{dateStr}</p>
+        <h1 class="text-[clamp(1.4rem,3.5vw,2.4rem)] font-black leading-tight text-white max-w-4xl">{post.title}</h1>
+        {post.summary && (
+          <p class="text-[#aaa] text-sm mt-4 max-w-3xl leading-relaxed border-l-2 border-[#e85c00] pl-4">{post.summary}</p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <article class="py-14 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-3xl mx-auto">
+      <div
+        class="blog-body text-[#ccc] text-sm leading-[2] [&_p]:mb-5 [&_h2]:text-xl [&_h2]:font-black [&_h2]:text-white [&_h2]:mt-12 [&_h2]:mb-4 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-[#eee] [&_h3]:mt-8 [&_h3]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_a]:text-[#e85c00] [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-[#e85c00] [&_blockquote]:pl-4 [&_blockquote]:text-[#aaa]"
+        set:html={bodyHtml}
+      />
+      {!bodyHtml && (
+        <p class="text-[#666] text-sm">本文を準備中です。</p>
+      )}
+    </div>
+  </article>
+
+  <section class="py-10 px-[5%] bg-[#111] border-t border-[#252525]">
+    <div class="max-w-3xl mx-auto flex flex-wrap justify-between gap-4">
+      <a href="/blog/" class="text-[#888] text-sm hover:text-[#e85c00] transition-colors">← ブログ一覧に戻る</a>
+      <a href="/contact/" class="text-[#888] text-sm hover:text-[#e85c00] transition-colors">お問い合わせ →</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

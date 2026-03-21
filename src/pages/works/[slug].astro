@@ -1,7 +1,10 @@
 ---
-// src/pages/works/[slug].astro — 施工事例詳細（動的ルート）
+// src/pages/works/[slug].astro — 施工事例詳細（動的ルート・静的プリレンダー）
+export const prerender = true;
+
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 
 export async function getStaticPaths() {
   const works = [
@@ -234,9 +237,9 @@ const { work } = Astro.props;
         <div class="bg-[#111] border border-[#e85c0059] p-6 text-center">
           <p class="text-sm font-bold mb-2">同様のカスタムをご希望の方</p>
           <p class="text-[#888] text-xs mb-4 leading-loose">まずはLINEでお気軽にご相談ください。見積もり無料です。</p>
-          <a href="/#contact"
+          <a href="/contact/"
              class="block bg-[#e85c00] text-white font-black text-sm py-3 text-center hover:bg-[#ff7520] transition-colors">
-            LINEで相談する
+            お問い合わせ・LINE
           </a>
         </div>
       </div>
@@ -254,4 +257,6 @@ const { work } = Astro.props;
       </a>
     </div>
   </section>
+
+  <Footer />
 </Layout>
