@@ -1,0 +1,102 @@
+---
+export const prerender = true;
+
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { servicePages, getServiceBySlug } from '../../data/servicePages';
+
+export function getStaticPaths() {
+  return servicePages.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const page = slug ? getServiceBySlug(slug) : undefined;
+if (!page) {
+  return Astro.redirect('/services/');
+}
+
+const lineUrl = import.meta.env.PUBLIC_LINE_URL || 'https://line.me/R/ti/p/';
+---
+
+<Layout title={`${page.title} | サービス | THREEWAYS`} description={page.description}>
+  <Header />
+
+  <section class="pt-[62px] bg-[#0a0a0a]">
+    <div
+      class="relative min-h-[240px] overflow-hidden flex items-end"
+      style={`background-image:url('${String(page.heroImage).replace(/'/g, "\\'")}');background-size:cover;background-position:center;`}
+    >
+      <div class="absolute inset-0" style="background:rgba(10,10,10,.85)"></div>
+      <div class="relative z-10 px-[5%] pb-10 w-full">
+        <nav class="text-xs text-[#555] mb-3">
+          <a href="/" class="hover:text-[#e85c00] transition-colors">TOP</a>
+          <span class="mx-2">/</span>
+          <a href="/services/" class="hover:text-[#e85c00] transition-colors">サービス</a>
+          <span class="mx-2">/</span>
+          <span class="text-[#888]">{page.title}</span>
+        </nav>
+        <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-2">{page.eyebrow}</p>
+        <h1 class="text-[clamp(1.5rem,3.5vw,2.4rem)] font-black tracking-wide text-white">{page.title}</h1>
+        <p class="text-[#aaa] text-sm mt-4 max-w-3xl leading-relaxed">{page.intro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 px-[5%] bg-[#0a0a0a]">
+    <div class="max-w-3xl mx-auto">
+      <div class="bg-[#111] border border-[#252525] p-8 mb-10">
+        <h2 class="text-[.7rem] tracking-[.22em] text-[#e85c00] uppercase mb-5">ポイント</h2>
+        <ul class="space-y-3">
+          {page.highlights.map((t) => (
+            <li class="flex gap-3 text-sm text-[#ccc] leading-relaxed">
+              <span class="text-[#e85c00] shrink-0">✓</span>
+              <span>{t}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {page.sections.map((sec) => (
+        <div class="mb-12">
+          <h2 class="text-lg font-black text-white mb-4 border-l-2 border-[#e85c00] pl-4">{sec.heading}</h2>
+          <div class="space-y-4">
+            {sec.paragraphs.map((para) => (
+              <p class="text-[#aaa] text-sm leading-[2]">{para}</p>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-12 px-[5%] bg-[#111] border-t border-[#252525]">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-[.68rem] tracking-[.3em] text-[#e85c00] uppercase mb-3">Contact</p>
+      <h2 class="text-xl font-black mb-3 text-white">ご相談・お見積もり</h2>
+      <p class="text-[#888] text-sm mb-8 leading-relaxed">
+        岐阜県を拠点に、カスタム・販売・整備までワンストップでサポートします。まずはお気軽にご連絡ください。
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href={lineUrl} target="_blank" rel="noopener" class="bg-[#06C755] text-white font-black px-8 py-3 text-sm hover:opacity-90 transition-opacity">
+          LINEで相談
+        </a>
+        <a href="/contact/" class="bg-[#e85c00] text-white font-black px-8 py-3 text-sm hover:bg-[#ff7520] transition-colors">
+          お問い合わせフォーム
+        </a>
+        <a href="/works/" class="border border-[#333] text-[#ccc] px-8 py-3 text-sm hover:border-[#e85c00] hover:text-[#e85c00] transition-colors">
+          施工事例を見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10 px-[5%] bg-[#0a0a0a] border-t border-[#252525]">
+    <div class="max-w-3xl mx-auto flex flex-wrap justify-between gap-4 text-sm">
+      <a href="/services/" class="text-[#888] hover:text-[#e85c00] transition-colors">← サービス一覧</a>
+      <a href="/gtec/" class="text-[#888] hover:text-[#e85c00] transition-colors">G-TEC（修理・板金）→</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

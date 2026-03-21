@@ -170,7 +170,10 @@ const reviews = [
       <span class="w-6 h-px bg-[#e85c00]"></span>Our Services
     </p>
     <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">サービス一覧</h2>
-    <p class="text-[#aaa] text-sm mb-12">購入・カスタム・修理・アフターまで。THREEWAYSグループがワンストップで対応します。</p>
+    <p class="text-[#aaa] text-sm mb-2">購入・カスタム・修理・アフターまで。THREEWAYSグループがワンストップで対応します。</p>
+    <p class="text-sm mb-12">
+      <a href="/services/" class="text-[#e85c00] font-bold hover:underline">サービス詳細ページ（SEO・各種別の説明）→</a>
+    </p>
     <div class="grid md:grid-cols-2 gap-12">
       <!-- THREEWAYS -->
       <div>
@@ -179,19 +182,29 @@ const reviews = [
           <span class="text-[.73rem] text-[#888]">カスタム・販売・整備</span>
         </div>
         {[
-          { ico:'🔧', name:'カスタムカー製作・販売', desc:'エアロ・全塗装・インテリアなど専門チームがオーダーメイドで1台を仕上げます。' },
-          { ico:'🚗', name:'新車・中古車販売', desc:'マスタング・Gクラス・テスラなど厳選した輸入車・国産車。全国納車対応。' },
-          { ico:'💴', name:'中古車買取', desc:'公正・透明な査定。どんな車種もお気軽にご相談ください。' },
-          { ico:'🔑', name:'車検整備', desc:'自社認証工場・国家資格整備士による安心の車検。' },
-          { ico:'🚨', name:'事故対応・タイヤ交換', desc:'全国対応積載車完備。事故救援から修理・納車まで一括サポート。' },
+          { ico:'🔧', name:'カスタムカー製作・販売', desc:'エアロ・全塗装・インテリアなど専門チームがオーダーメイドで1台を仕上げます。', href:'/services/custom/' },
+          { ico:'🚗', name:'新車・中古車販売', desc:'マスタング・Gクラス・テスラなど厳選した輸入車・国産車。全国納車対応。', href:'/services/sales/' },
+          { ico:'💴', name:'中古車買取', desc:'公正・透明な査定。どんな車種もお気軽にご相談ください。', href:'/services/buyback/' },
+          { ico:'🔑', name:'車検整備', desc:'自社認証工場・国家資格整備士による安心の車検。', href:'/services/maintenance/' },
+          { ico:'🚨', name:'事故対応・タイヤ交換', desc:'全国対応積載車完備。事故救援から修理・納車まで一括サポート。', href:'/contact/' },
         ].map(s => (
-          <div class="flex gap-3 p-4 border border-[#252525] mb-2 hover:border-[#e85c00] hover:bg-[#e85c0009] transition-all">
-            <span class="text-2xl min-w-[2rem] text-center">{s.ico}</span>
-            <div>
-              <div class="font-bold text-sm mb-1">{s.name}</div>
-              <div class="text-[#888] text-xs leading-relaxed">{s.desc}</div>
+          s.href ? (
+            <a href={s.href} class="flex gap-3 p-4 border border-[#252525] mb-2 hover:border-[#e85c00] hover:bg-[#e85c0009] transition-all no-underline text-inherit">
+              <span class="text-2xl min-w-[2rem] text-center">{s.ico}</span>
+              <div>
+                <div class="font-bold text-sm mb-1">{s.name} <span class="text-[#e85c00] text-[.65rem] font-black">→</span></div>
+                <div class="text-[#888] text-xs leading-relaxed">{s.desc}</div>
+              </div>
+            </a>
+          ) : (
+            <div class="flex gap-3 p-4 border border-[#252525] mb-2 hover:border-[#e85c00] hover:bg-[#e85c0009] transition-all">
+              <span class="text-2xl min-w-[2rem] text-center">{s.ico}</span>
+              <div>
+                <div class="font-bold text-sm mb-1">{s.name}</div>
+                <div class="text-[#888] text-xs leading-relaxed">{s.desc}</div>
+              </div>
             </div>
-          </div>
+          )
         ))}
       </div>
       <!-- G-TEC -->
@@ -216,7 +229,9 @@ const reviews = [
         ))}
         <div class="bg-[#e85c000f] border border-[#e85c0038] p-4 text-xs text-[#aaa] leading-loose mt-3">
           ※ G-TECへのご依頼も<strong>THREEWAYSのLINE・電話にて一括受付</strong>しています。<br/>
-          <a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00]">G-TECウェブサイト →</a>
+          <a href="/gtec/" class="text-[#e85c00] hover:underline">G-TECサービスページ（当サイト）→</a>
+          <span class="text-[#444] mx-2">|</span>
+          <a href="https://g-tec-repair.com/" target="_blank" rel="noopener" class="text-[#e85c00] hover:underline">公式サイト →</a>
         </div>
       </div>
     </div>
