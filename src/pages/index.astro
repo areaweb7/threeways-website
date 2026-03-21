@@ -74,7 +74,8 @@ const reviews = [
       <span class="w-6 h-px bg-[#e85c00]"></span>Works Gallery
     </p>
     <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-3">施工実績ギャラリー</h2>
-    <p class="text-[#aaa] text-sm mb-10">THREEWAYSが手がけたカスタムカーの仕上がりをご覧ください。</p>
+    <p class="text-[#aaa] text-sm mb-2">THREEWAYSが手がけたカスタムカーの仕上がりをご覧ください。</p>
+    <p class="text-[#555] text-[.72rem] mb-10 tracking-wide">※ クライアント提供の最新施工写真は、データ取り込み後に順次差し替え予定です。</p>
     <div class="grid grid-cols-4 grid-rows-2 gap-[3px]">
       {gallery.map((g, i) => (
         <div class={`overflow-hidden relative group ${i === 0 ? 'col-span-2 row-span-2 h-[460px]' : 'h-[228px]'}`}>
@@ -100,15 +101,23 @@ const reviews = [
       <span class="w-6 h-px bg-[#e85c00]"></span>Our Team
     </p>
     <h2 class="text-[clamp(1.7rem,3.8vw,2.8rem)] font-black tracking-wide mb-6">創業メンバー &amp; スタッフ</h2>
-    <p class="border-l-2 border-[#e85c00] pl-5 text-[#aaa] text-sm leading-loose mb-12 max-w-2xl">
+    <p class="border-l-2 border-[#e85c00] pl-5 text-[#aaa] text-sm leading-loose mb-4 max-w-2xl">
       後藤・岩井・八木・後藤（真峰）の4人が、それぞれの専門技術を持ち寄りTHREEWAYSを立ち上げました。カスタム、整備・販売、テクニカル、ボディワーク——各分野のプロが揃っているからこそ、購入からカスタム・修理・アフターまでを一貫してお任せいただけます。
     </p>
+    <p class="text-[#555] text-[.72rem] mb-12 tracking-wide">※ スタッフ写真は現在プレースホルダーです。正式写真が整い次第、差し替えます。</p>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#252525]">
       {team.map(m => (
         <div class="bg-[#161616] overflow-hidden hover:bg-[#1a1008] transition-colors">
-          <div class="h-[200px] bg-[#0a0a0a] flex items-center justify-center relative">
-            <span class="text-6xl text-[#252525]">👤</span>
+          <div class="h-[200px] bg-[#0a0a0a] relative overflow-hidden">
+            <img
+              src="/placeholders/staff.svg"
+              alt=""
+              role="presentation"
+              loading="lazy"
+              class="w-full h-full object-cover object-top opacity-90"
+            />
             <span class="absolute top-2 left-2 bg-[#e85c00] text-white text-[.6rem] font-black px-2 py-[3px] tracking-widest">{m.badge}</span>
+            <span class="absolute bottom-2 right-2 text-[.55rem] text-[#444] tracking-widest bg-black/50 px-1.5 py-0.5">準備中</span>
           </div>
           <div class="p-5">
             <p class="text-[.62rem] text-[#e85c00] tracking-[.18em] uppercase mb-1">{m.role}</p>
